@@ -1,0 +1,221 @@
+/*Utilizing Responsiveness: Adapt your digital CV to be mobile-friendly, particularly for devices with screen widths as small as 480px.
+*/
+
+html{
+    font-family: "Noto sans mono", sans-serif;
+    outline: 0;
+    min-width: 100%;
+    min-height: 100%;
+    scroll-padding-top: 4%;
+    overflow-x: hidden;
+}
+/*font chosen for reason of most sans-serifs being a modern choice of professionalism
+scroll padding from: https://stackoverflow.com/questions/49331572/offset-scroll-anchor-in-html-with-bootstrap-4-fixed-navbar*/
+
+body{
+    background:#010d41;
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin: 4% 0 0;
+    padding: 0;
+    min-width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}/*Starting here, and throughout the whole document, I changed all size measurements to be relative. This makes my documnet a lot easier to make responsive*/
+
+.contact{
+    text-decoration: line-through 0.1rem;
+    display: flex;
+    justify-content: center;
+}/*I combed through the html and switched a lot of my ids to classes. This lower specificity ended up being sufficient, so may cause less headaches in the future 
+when I need stronger selectors*/
+
+.message{
+    position: relative;
+    top: 2rem;
+}
+
+.lastform {
+    margin-top: 3.5rem;
+}
+
+nav{
+    width: 100%;
+    height: 4%;
+    background-color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.navlist{
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    list-style-type: none;
+    font-size: 0.47rem;
+    padding: 0;
+    position: relative;
+    top: 0.4rem;
+}/*Had help with bar from https://www.geeksforgeeks.org/how-to-create-a-horizontal-navigation-bar-in-html-and-css/
+learned list-style-type:none from https://getcssscan.com/blog/how-to-remove-bullets-from-li-css*/
+
+
+.navlist :hover{
+    color: hsla(0, 100%, 49%, 0.699);
+    transition: color 0.2s cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+img{
+    width: 50%;
+    height: 50%;
+    margin: 2rem;
+    flex-shrink: 0;
+}
+
+#intro{
+    border-radius: 100%;
+    width: 40%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 30%;
+    transition: box-shadow 1.8s;
+} /*Had to upload an edited version of the photo to meet the circle border guidlines, previous photo too off-center*/
+
+#intro:hover{
+    box-shadow: 0rem 0rem 10rem 8.5rem rgba(45,255,196,0.86);
+}/*got help for glow from https://cssbud.com/css-generator/css-glow-generator/ */
+
+section{
+    margin: 2.5rem 1.5rem 2.5rem;
+}
+
+hr{
+    border: black 0.15rem  solid;
+    margin: 0;
+    padding: 0;
+}
+
+div{
+    margin: 1.5rem;
+    width: 90%;
+}
+
+/*incorporated more flex box here, ended up cleaning up the code at the same time*/
+
+.saiyan{
+    width: 85%;
+    height: 40%;
+    border: 0;
+    padding: 0;
+    margin: 2.5rem 0 2.5rem;
+    position: relative;
+    left: 7.5%;
+}
+
+h1{
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    top: 1.7rem;
+}
+/*text size heirarchy: h1 > h2 > everything else > footer*/
+
+h2{
+    font-size: 2rem;
+    text-decoration: underline;
+    text-transform: capitalize;
+    padding-bottom: 1rem;
+}
+
+h2:first-letter{
+    font-size:2rem;
+}
+
+input{
+   width: 10rem; 
+   margin-bottom: 1rem;
+   background-color: #ffffff;
+}
+
+textarea{
+    width: 15rem;
+    background-color: #ffffff;
+}
+
+input:focus{
+    background-color: hsla(0, 100%, 49%, 0.699);
+    width: 30rem;
+    transition: all 3s ease-in;
+}
+
+textarea:focus{
+    background-color: hsla(0, 100%, 49%, 0.699);
+    width: 35rem;
+    transition: all 3s ease-in;
+}/*using animations for these inputs made me realise jsut about anything is animatable, just needs a starting state and an ending state*/
+
+a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+footer{
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.totop{
+    display: flex;
+    justify-content: center;
+}
+
+.totop:hover{
+    color: hsla(0, 100%, 49%, 0.699);
+    transition: color 0.2s cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+main{
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (min-width: 700px){
+    html{
+        scroll-padding: 6%;
+    }
+    main{
+        width: 75%;
+    }
+    nav{
+        height: 6%;
+    }
+    .navlist{
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 1000px){
+    html{
+        scroll-padding: 8%;
+    }
+    main{
+        width: 50%;
+    }
+    nav{
+        height: 8%;
+    }
+    .navlist{
+        font-size: 1rem;
+    }
+    img{
+        width: 70%;
+        height: 70%;
+    }
+}

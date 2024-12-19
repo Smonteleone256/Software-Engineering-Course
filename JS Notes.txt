@@ -1,0 +1,499 @@
+NaN=not a number, typed exactly
+3 ways to define a variable  let,const, and var
+Only use let and const
+5(7) types of Primitive Type Variables
+Number, String, Boolean, Null, Undefined, (Symbol, BigInt)
+JS specific, variables can change type, other languages can't
+
+Numbers and beginning
+let name = variable;
+name=name+new variable; (way to change)
+	shorthand: name += variable;
+		   name++;  a way to quickly add or subtract (--) 1 from the value
+variable can be anything, but should make sense
+variable naming convention is lowercase at first, uppercase new word, cannot start with digit
+	ex. avgRatingOfProducts
+
+const is the same as let, except the value can not be changed
+
+Booleans
+let name=true; or let name=false; or const name=true; or const name=false;
+
+typeof value  tells you type of variable the value is
+
+strings
+
+let name="variable" or 'variable'
+name + name for strings, combines them with no space
+name + "" + name, same but adds space
+strings are indexed, so each character is assinged a number based on position (-1, 0, 1,...)
+	starts with 0, negative wraps around backwards
+	"c" in cat is 0 or -3
+	name[integer] pulls up specific character corresponding to its number
+	can also do name[name.length+ or - number] will also work, good if string is long
+"variable".length, tells you how many characters in a string
+
+string methods-built in methods to do an action to a string
+name.method() parenthesis are required even if empty
+name.toUpperCase() makes variable all uppercase
+name.toLowerCase() lowercase
+name.trim() removes trailing and leading empty space
+can do multiple name.trim().toUpperCase()
+
+some methods accept arguments that modify their behavior usihng the parentheses
+name.method(argument)
+name.indexOf(argument);tells us where specified piece in argument occurs in a string (case sensitive)
+name.slice(number,number);gives us a specific piece of a string
+	let sport="baseball"
+	sport.slice(0,5);  gives us base (starts with initial number, does not include last number)
+name.replace("argument", "old thing")
+	baseball.replace("basket", "base") basketball
+
+console.log() prints something to the developer tool console, useful to immediatey see changes or debugging
+	can show multiple things by using a comma
+console.error(); same, but printed in syntax error format
+
+
+string escape
+most start with \
+	normally can't use multiple quotes in a single string, but can use \' or \" to escape it
+		'He aint happy' won't work, but 'He ain\'t happy' will
+		"He said "he aint happy"" won't work but \"he said "he ain't happy\"" will
+	\n will give a new line. "Hello/nGoodbye" will appear in two lines
+	If you want a backslash normally in code, have to use two
+		\ won't work, \\ will
+
+template literals
+	use backticks` not ' or "
+	`${variable}`is used with it to evaluate something in the braces and will be put in the string
+	`You owe me ${100+450}` turns into "You owe me 550"
+		let animal = "pig" and let sound = "oink"
+		`${animal} says ${sound.toUpperCase()}` turns into pig says OINK
+		let item = "cucumbers" let price = "1.99" let quantity = "4"
+		`You bought ${quantity} ${item}, total price: $${price*quantity}`; turns into
+		"You bought 4 cucumbers, total price: $7.96"
+
+Null - intentional absence of any value (must be assigned)
+Undefined - variables that do not have a value assigned to it
+
+Math Objects - contains properties and methods for mathmematical constants and functions
+	Math.pi   is 3.14...
+	Math.floor()  chops off decimals
+	Math.round()  rounds decimals
+	Math.pow()    exponential multiply
+	Math.ranom()  returns random decimal between 0 and 1, not including 1
+		const step1=Math.random();
+		const step2= step1 * 10
+		const step3 = Math.floor(step2);
+		Math.floor(Math.random() * 10) + 1; gives random number between 1-10
+
+typeof variable  tells you what type the typed variable is
+parseInt and parseFloat are used to parse strings into numbers, but watch out for NaN
+	has to start with a number, keeps going until a non-number character is hit
+	useful for getting string data, and making them into numbers to do math with them
+	parseInt('24') is 24  parseInt('24.987') is 24 parseInt('28dayslater') is 28
+	parseFloat('24.987') is 24.987 parseFloat('this is 24') is NaN
+
+Comparisons
+	> greater than
+	< less than
+	>= greater than or equal to
+	<= less than or equal to
+	== equality
+	!= not equal
+	=== strict equality
+	!== strict non-equality
+These return as boolean values (true or false)
+	example: -2 > 1   returns as false
+	>,<,>=,<= are usually only numbers, can compare strings as well based on unicode order
+== checks for equality of value, but not type
+	coerces both values to the dsame type for comparison
+	sometimes leads to unexpected results
+		0 == false; reads true  null == undefined; reads true  0 == false; reads true
+=== checks for both equality of value and type, so no coercing involved
+	is almost all cases, use === or !==
+!= and !== are the same, but checking if something is not equal
+
+
+Conditional Statements - if, else if, else
+	if - run if given condition is true
+		let rating = 3;
+		if (rating === 3) {
+		    console.log("You are a Superstar!");
+		} - in this example, You are a Superstar! prints to the console
+	else if - follows same format, runs code if if statement condition is not met
+		  can have multiple, but needs if first
+		  if if is true, else if is skipped
+		  if if is false, then else if runs 
+		let rating = 2;
+		if (rating === 3) {
+		    console.log("You are a Superstar!"); - Does not run
+		}
+		else if (rating === 2) {
+		    console.log("Meets Expectations"); -This runs
+		}
+		else if (rating === 1) {
+		    console.log("Needs Improvement"); - Does not run
+		}
+	else - again same format, but it is the catch all if nothing else is true
+		can only have 1 else per if, does not need else ifs
+		let rating = x;
+		if (rating === 3) {
+		    console.log("You are a Superstar!"); - Does not run
+		}
+		else if (rating === 2) {
+		    console.log("Meets Expectations"); -Does not run
+		}
+		else if (rating === 1) {
+		    console.log("Needs Improvement"); - Does not run
+		}
+		else {
+		    console.log("Invalid Rating"); - Will Run
+		}
+	conditionals can be nested inside themselves, following the same rules
+		want to avoid nesting excessively to avoid code being hard to read/follow
+
+Truthy and Falsy Values - all values have an inherit truthy-ness or falsy-ness to it
+	Falsy Values: false, 0, ""(empty string), null, undefined, NaN
+	Truthy Values: everything else!
+	This is used to run code based on the absence or presence of values
+
+Logical Operators - &&, ||, ! for and, or, not
+	Can be used to write more complex conditionals
+	And && - needs all sides to be true for whole statement to be true
+		(1 <= 4 && "a" === "a" && 5 === 5) this is true
+		(1 >= 4 && "a" === "a" && 5 === 5)  this is false (even though all others true)
+	Or || is similiar, but only 1 side needs to be true for whole statement to be true
+	Not ! single expression (not multiple sides), statement is true if expression is false
+
+Operator precedence
+	! takes precedence over && which takes precedence over ||
+	use parenthesis to group parts of the statement to work around precedence
+		let x = 7;
+		x === 7 || x ===3 && x > 10; runs true (and run first, or last)
+		(x === 7 || x ===3) && x > 10; runs false (() run first, which is or, then and ran)
+	MDN has a table that lists all Operators in precedence order
+
+Switch Statement - Easier/Faster to read way to check multiple things for a variable
+	switch(variable){
+		case 1:
+			console.log("Output");
+			break; - (this makes it so only this line is run if statement is true, otherwise everything behind this will also run)
+		case 2:
+			console.log("Output2");
+			break;
+		case 3:
+			console.log("Output3");
+			break;
+		default:
+			console.log("Catach-All other Output");
+	     }
+	Can ommit break if you want all code after use case (or till the next break) to run
+
+Ternary operator - shorthand for conditionals
+	condition ? expIfTrue: expIfFalse
+		let num = 7
+		num === 7 ? console.log("lucky!") : console.log("bad!")
+			instead of:
+			let num = 7
+			if (num === 7){
+				console.log("lucky!")
+			}
+			else{
+				console.log("bad!")
+			}
+
+
+Data Structures - Arrays and Objects
+
+
+Arrays - collection of data in a specific order that can be accessed later
+	uses [];
+		let shoppingList = ["cereal", "cheese", "ice"];
+		can make empty and place data in it later: let variable = []
+		can mix up different types of data like strings and numbers inside same array
+			some other languages don't elt you do this
+		they are indexed which represents specific order, starting at 0
+			let colors = ["red","blue,"indigo","violet"];
+				'colors [3]' and '[colors.length-1]' gives "violet"
+	
+Arrays are changable
+	let shoppingList = ["cereal", "cheese", "ice"];
+	shoppingList [1] = "Whole Milk"; - changes array to: ["cereal", "Whole milk", "ice"]
+	shoppingList [3] = "cheese"; - adds "cheese to the end" ["cereal", "Whole milk", "ice", "cheese"]
+	shoppingList [shoppingList.length] = "cheese"; does the same thing as ^ without knowing length of array
+
+Other Methods of adding/removing variables to array
+	let shoppingList = ["cereal", "cheese", "ice"];
+	shoppingList.push("rice"); - adds to the end of an array and returns new length of array- ["cereal", "cheese", 													          "ice", "rice"]
+		can do multiple - shoppingList.push("chocolate","raisins"); - ["cereal", "cheese", "ice", "rice", 											      "chocolate", "raisins"]
+	shoppingList.pop(); - removes last item of array and returns last item of array- ["cereal", "cheese", "ice"]
+	shoppingList.unshift("onion"); - same as push, but at the start- ["onion", "cereal", "cheese", "ice"]
+	shoppingList.shift(); - same as pop, but at the start- ["cereal", "cheese", "ice"]
+
+Some more methods of changing arrays
+	concat - let newArray = oldArray.concat([value1[, value2[, ...[, valueN]]]])
+		let fruits = ["apple", "banana"]  let veggies = ["broccoli", "potatoes"] let meats = ["steak", "chicken"]
+		console.log(fruits.concat(veggies)); - ["apple", "banana", "broccoli", "potatoes"]
+		let allFood = fruits.concat(veggies, meats); allFood = ["apple", "banana", "broccoli", "potatoes", "steak", 														"chicken"]
+
+	includes- looks for a value in an array	(exact match)
+		  fruits.includes("fish") would print false   fruits.includes("apple") runs true (app runs false)
+	          can put index after value to search for a value after a specific part of the array
+			fruits.includes("apple, 1") runs false, fruits.includes("apple, 0") runs true
+
+	indexOf-searches for a value and returns index of that value
+		allFood.indexOf("broccoli") prints 2
+		can also put an index to do a search after a specific part
+	reverse-reverses an array (doesn't make a copy, mutates array)
+		fruits.reverse()- makes ["banana", "apple"] the new configuration
+	join-combines all values of an array into a single string
+			fruits.join() - prints "apple, banana"
+			can put a value in parenthesis to set the seperator between items
+				fruits.join("&") - prints "apple&banana"
+			even if array contains things other than strings, ,join will make them into a string then combine them
+
+	slice-takes portion of an array and makes a new one
+		    numbers determine the indexes in array that is sliced, (included first number, not including second)
+				if only use one number, goes from that index to the end
+				can use negative numbers, which will go backwards
+				no numbers makes a complete copy
+	      	    	let newFruits = allFood.slice(0, 2); makes new array  newFruits = ["apple", "banana"]
+	splice-moves, replaces, or adds elements in array
+	       3 arguments: where to start, how many to delete, what to add- in order
+	       	      fruits.splice(1,0,"raddish") makes ["apple", "raddish", "banana"]
+		      		if you choose to delete something, the things deleted will be printed when ran
+				can insert multiple
+					fruits.splice(2, 0 "egg", "corn") makes ["apple", "raddish", "egg", "corn", "banana"]
+	sort- sorts an array
+	      	let materials = ["wood", "stone", "brick"]
+		materials.sort() returns ["brick", "stone", "wood"]
+			it converts elements into strings, then sorts based on UTF-16 codes
+			can change this behavior by passing a function into it
+
+
+arrays are stored in refernce types, while primitives are stored as value types
+	Array variables points to the data in memory, while primitives actually have the data memorized to the name
+		becomes important when using multpile things for the same array value, changing one changes them all because
+		they are referncing the same thing, while primitive only changes the specific variable name
+	because of this, const does not prevent you from changing arrays, only keeps a variable pointing to the same reference
+
+arrays can be nested
+	const colors = [
+		["red", "crimson"],
+		["orange", "dark orange"],
+		["yellow", "gold"],
+		["blue", "navy blue"]
+]
+			colors[0] prints ["red", "crimson"]
+			colors [0][1] prints "crimson"
+				colors [0][1] = "scarlet" makes the sub array ["red", "scarlet"]
+
+	
+			
+
+Objects - similiar to arrays, but data is not ordered. Collection of properties
+	  uses curly braces
+	  instead of being accessed with indexes, thay are accesed by keys
+	  all types of values can be used
+	  useful when dealing with a lot of related data where order is not important
+	  	
+		const fitBitData {
+			totalSteps: 5160,
+			miles: 2,
+			avgCalorieBurn: 175,
+			workOutsThisWeek: 1 of 7,
+			avgGoodSleep: 2:13
+			100: "one hundred"
+		};
+	 can access data using .
+		fitBitData.totalMiles - prints "2"
+	 all keys are converted to strings (symbols are exceptions), so can make the . access unreliable when it comes to differnet variable names
+	 	so, can use brackets instead
+			fitBitData["100"] prints "one hundred" while fitBitData.100 prints an error
+		use brackets whne the variable is dynamic or unkown, or when the variable is not a valid identifier for .
+	 can add or subtract values using either . or [], can also use += and ++
+		fitBitData.kilometers = 1;  adds that to the object
+	
+	objects can also be nested and are also reference types
+	to compare if arrays or objects are equivalent, can be tricky
+		would need to manually see if values are the same
+			=== only checks for equality of reference, not contents
+	 
+
+
+Loops - allow you to repeat code
+	types of loops:
+	
+	for loops
+		for (
+		   [initialExpression];
+		   [condition];
+		   [incrementExpression]
+		){}
+
+	example:
+		for (let i= 1; i <=10; i++) {console.log(i);} prints 1 10 times, going 1 - 10
+		i is standard notation for loops
+	Loops can be infinite - AVOID THIS
+		happens when logic is wrong so the condition to stop is never met
+	for loops can also be used for arrays and strings
+		const examScores = [98, 77, 84, 91, 57, 66];
+		for(let i = 0; i < examScores.length; i++) {console.log(i, examScores[1]);}
+			prints 0 98   1 77   2 84  and so on
+		
+		const word = "stressed";
+		let reversedWord = ""
+		for(let i = word.length -1; i >= 0; i--){console.log(word[i]);}
+			prints d  e  s  s  e  r  t  s
+		for(let i = word.length -1; i >= 0; i--){reversedWord += word[i];}
+			changes variable reversedWord to desserts when loop is finished
+	for loops can be nested
+		nested loops complete there full cycle before the parent start another iteration of its loop
+		j is standard notation, and adding another nest would be k but shouldn't need further nesting
+
+	
+	While loop - simpler and can be more flexible
+		let j = 0;
+		while(j <=5){console.log(j); j++}
+		while loops are best when we loop for an unkown amount of times
+			Guessing game using while loop
+			const target = Math.floor(Math.random() *10);
+			let guess = Math.floor(Math.random() *10);
+			while (guess != target){
+				console.log(guess);
+				guess = Math.floor(Math.random() *10);
+			};
+					while(some condition){update or attempt to make that condition false}
+	break - allows you to stop a loop early
+		not common for for loops because you write the exact stopping point anyway
+		only stops loop it is directly in, so a nested break won't stop all loops
+			const target = Math.floor(Math.random() *10);
+			let guess = Math.floor(Math.random() *10);
+			while (true) {
+				if (target === guess) break;
+			}
+
+	for...of loop - no support in internet explorer!
+			cleaner and newer than a for loop
+			for (variable of iterable) {statement}
+				iterables are arrays or strings
+				let subreddits = [ "soccer", "popheads", "cringe", "books" ];
+				for (let sub of subreddits) {
+					console.log(sub);
+				} - prints soccer then popheads...
+			not always better than a for loop
+				
+	Object.keys() and Object.values() are methods that can make arrays out of pieces of an object, which lets you loop through
+		const movieReviews = {
+			Arrival  : 9.5,
+			Alien    : 9,
+			Amelie   : 8,
+			Corlaline: 7.5
+		};
+		
+		for (let movie of Object.keys(movieReviews)){
+			console.log(movie, movieReviews[movie]);
+		}; prints Arrival  Alien  Amelia  Coraline
+
+
+		const ratings = Object.values(movieReviews);
+		let total = 0
+		for (let r of ratings){
+			total += r;
+		}
+		let avg = total / ratings.length;
+		console.log(total);  prints 8.5
+
+
+Functions - allows us to reuse a chunk of code at a later point
+	    must first define the function, then you can run it as much as you need
+	    methods we have been using previously are functions
+		they are built-in functions, so have been skipping the defining step
+		you can define your own functions to have different functionalities
+	    function funcName(){do something}
+		function grumpus(){
+			console.log("ugh...you again...")
+			console.log("FOR THE LAST TIME...")
+			console.log("LEAVE ME ALONE")
+		} - whenever grumpus is called, those three lines are printed
+			to run it, grumpus();
+		
+	    function rollDie() {
+		let roll = Math.Floor(Math.random() * 6) + 1;
+		console.log(`Rolled: ${roll}`);
+	    } - generates random # 1-6
+
+	    function throwDice(){
+		rollDie();
+		rollDie();
+		rollDie();
+		rollDie();
+		rollDie();
+		rollDie();
+	    } function in a function, generates random number 6 times when throwDice is called
+
+	    Arguments - inputs you can run through functions to change the output
+			methods like indexOf and splice have used this
+				function greet(nickname) {
+					console.log(`Hi, ${nickname}!`)
+				} - when called, prints Hi, undefined!
+				    when called and Sal is put in parentheses, prints Hi, Sal!
+
+				function throwDice(numRolls){
+					for (let i = 0, i < numRolls, i++) {
+				 }		rollDie();
+				} - same as before, but can now pass through number of rolls instead of always 6 times
+			can have functions with multiple arguments
+				function sum(x, y) {
+					console.log(x + y);
+				}
+			multiple argument are ran left to right
+	     Return - lets functions give values that we can capture in variables for future use
+			function add (x, y){
+				return x + y;
+			} - Now if you run the function add (4, 5) it will return 9
+		      can return one value at a time
+		      they also end function execution, so if its in the middle of a function code block, code after it won't be ran if the return is ran
+
+try and catch - way to catch errors in code, so instead of a bug stopping code it'll continue
+		try {
+			functionThatDoesNotExist();
+		} catch (err){
+		  console.log("Error!!")
+		  console.log(err);
+		}
+		console.log("End") - will try to call function that isn't defined, will print Error!! since it isn't, 
+				     then print more info on error,
+				     then continue on and print End
+
+	
+		try {
+			3 + 3;
+		} catch (err){
+		  console.log("Error!!");
+		}
+		console.log("End") - will print End since 3 + 3 works
+			paramater for catch is optional, but can be useful for referencing
+
+finally - optional keyword for try/catch which executes code regardless of try/catch outcome
+	  few use cases, only needs try, catch is not necessary to use finally, but will not tell you if there is an error
+	  	as it runs regardless of error or not
+
+throw - used to make customised error messages
+	when ran, stops subsequent code similiar to a normal error
+	can be used to simplify the type of error or make a better user/coder experience
+
+throw new - similiar, but creates a new error object which gives better info on the error
+
+
+laptop bag
+laptop decals
+	cruise and mimikyu
+hue
+tapple
+(wavelength)
+		      
+
+
+	

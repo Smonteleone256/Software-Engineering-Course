@@ -1,0 +1,107 @@
+attention to detail**
+	stocking/blocking at publix, getting ready for health inspections
+
+decision making
+
+Public Speaking**
+**
+
+Empathy**
+
+Ability to think quickly
+
+teaching
+
+adaptability**
+
+problem solving
+
+conflict res
+
+
+
+Now that you have an understanding of some of the most common transferable skills, it’s time to identify some of your own: 
+
+1. Identify 10 skills from the above list that you most exhibit.
+
+2. Write down all the ways you have used each skill in both your professional and personal life. Try to be as comprehensive as possible, making sure to include all the ways you embody the skill. (If you need some examples look at the section above).
+
+3. Pare down your list to the five skills that have been most impactful for you in your professional or personal life. 
+
+4. Jot down key achievements for each skill on your short list.
+
+5. Rank your five skills from most impactful to least impactful. The purpose here is not to judge your skills but instead to have a clear sense of what skills have served you well so far. 
+
+Congratulations! You now have a list of your most impactful transferable skills. When you apply for jobs, look for opportunities where you can convey your transferable skills either on your resume or during your job interview. 
+
+
+Software Architect, Software Developer, Software Development Engineer, Software Engineer, Systems Engineer Application Developer
+
+
+
+
+
+As a Software Engineer at Environ Energy, you will play a crucial role extending our existing applications and creating new applications to expand our rapidly evolving enterprise application needs. Your experience with Microsoft Dynamics 365 and other software and database development environments will be highly valued and impactful within our growing information technology team. Your contribution will extend beyond the Microsoft Dynamics platform, as you will have the opportunity to work on various projects, leveraging and expanding your software development and Microsoft technology expertise.
+
+
+
+
+
+OpenObserve is a leading player in the world of open source observability tools, backed by renowned venture capitalists such as Nexus Ventures and Dell Technologies Capital. With our unique offering of combining logs, metrics, and traces into a single platform, we've made our mark in the tech industry. OpenObserve is the only tool that comes with a single binary that enables anyone to get started in less than 2 minutes. OpenObserve is proudly a fully remote team with team members spread across the globe.
+The ideal candidate will be responsible for developing high-quality applications. They will also be responsible for designing and implementing testable and scalable code. 
+
+
+
+
+
+    
+As a member of our Technology team, the Site Reliability Engineer will be on an on-call rotation to respond to incidents that impact Newsela.com availability and provide support for developers during internal and external incidents.
+    Maintain and assist in extending our infrastructure with Terraform, Github Actions CI/CD, Prefect, and AWS services.
+    Build monitoring that alerts on symptoms rather than outages using Datadog, Sentry and CloudWatch.
+    Look for ways to turn repeatable manual actions into automations to reduce on-call toil.
+    Improve operational processes (such as deployments, releases, migrations, etc) to make them run seamlessly with fault tolerance in mind.
+    Design, build and maintain core cloud infrastructure on AWS and GCP that enables scaling to support thousands of concurrent users
+    Debug production issues across services and levels of the stack.
+    Provide infrastructure and architectural planning support as an embedded team member within a domain of Newsela’s application developers. 
+
+
+
+
+
+Ramp is, at its core, an engineering company and is on a mission to build the best engineering team!
+
+We are rapidly scaling our iOS app and looking for someone to help build the next iteration of Ramp on Mobile with our world-class team. You have a strong sense of ownership and enjoy owning projects from inception to scaling in production. We value people who take pride in their work and show an aptitude for learning quickly, whether they’re familiar with our stack or not.
+
+Check out our Engineering Blog for more on our tech stack, mission, and values!
+
+What You’ll Do
+
+    Design, build, and launch new products on Ramp’s iOS App
+    Help establish and influence engineering processes, tools, and systems that allow us to scale the code base, productivity, and the team
+    Code review, set engineering standards, mentor, and own quality
+    Work with other engineers to build the necessary backing services for the app
+    Work with Product and Design to plan and identify key features to make the app successful
+    Work alongside product and business teams to understand customer feedback in order to constantly improve our product
+
+
+
+
+As an Android Developer, you'll have the chance to work on exciting projects that challenge and inspire you. You'll collaborate with talented colleagues to design, develop, and deploy innovative Android applications that delight users and drive business growth. This is an opportunity to join a dynamic team and take your Android development career to the next level.
+
+
+Android Developer
+Site Reliability Engineer
+Software Engineer
+
+html
+css
+javascript
+MERN stack
+GitHub
+TypeScript
+Nextjs
+
+projects include
+pokedex
+Dog adoption platform
+Master order program

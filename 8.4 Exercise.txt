@@ -1,0 +1,30 @@
+mkdir first
+cd first
+touch person.txt
+mv person.txt another.txt
+cp another.txt copy.txt
+rm copy.txt
+cp -r first second
+rm -rf second
+
+1. It pulls up a manual for a specified command. You can scroll by mouse wheel or arrow keys and escape using the q button.
+
+2. Uses a long list format that is more detailed. Lists all files, even hidden ones
+
+3. CTRL + Arrow
+
+4. CTRL + E
+
+5. CTRL + A
+
+6. CTRL + W
+
+7. The shell is the program that takes commands and returns an output, the terminal is the window we actually input those commands.
+
+8. An absoulte path is the exact name of a location in the terminal
+
+9. A relative path goes off of where you are currently, can be quicker but has limitations
+
+10. Flags change the behavior of commands, allowing them to be flexible. -a allows ls to list all items, -r is recursive and allows you to manipulate all items in a directory, -l gives a detailed list of items in a directory
+
+11. It allows you to delete a directory that has contents

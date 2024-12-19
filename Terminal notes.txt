@@ -1,0 +1,72 @@
+/ root directory
+~ home directory (whatever user is logged in)
+
+Commands
+	pwd - "print working directory" tells you where you are in absolute path
+	ls - "list" lists all files in the directory you are in
+		can have a flag behind it to list something else other than where you are
+		have dashes in front of them
+		can have multiple by listing them in successon behind, can be shortcutted with one dash
+			-a : lists all files, including hidden ones, in current directory
+			-l : gives more info about each item in folder
+				to combine, -a -l or -al
+	clear - clears screen
+	cd - "change directory" type cd followed by the directory or a path to the directory
+		cd "name of directory"
+		case sensitive, need correct spelling
+		can have more behind it to move in different directions
+			cd .. moves to one directory up
+			. is current directory
+	open - opens file using default application or named folder
+	man - describes a command
+	      when you use it, you need to follow it with the command you want described
+
+Absolute vs relative paths
+	absolute tells you in exact terms where you are, while relative is relative you where you are currently
+		cd Desktop (relative) or cd /Users/Sal/Desktop (absolute)
+		can do partial absolute for a more specific relative but must start with the directory you are in
+
+
+Windows specific stuff
+	Use terminal through Ubuntu being ran on windows
+	files are saved and manipulated through a hidden file dealing with Ubuntu
+	explorer.exe . allows you to interact directly with the linux folders in file explorer
+
+	if you want to interact with windows folder in the linux terminal, you need to go backwards to the root 	directory and go into the mnt folder
+	
+	should save things you want to manipulate in the linux folders, to make it easier to navigate
+
+Creating files and folders
+	mkdir - make directory in current folder (ex. mkdir fish makles folder fish in current folder)
+		try to avoid using spaces, as spaces seperate multiple files if you try to make multiple directories
+		if you absolutely need one, need to use quotes
+	
+	touch - similiar to mkdir, but creates files instead
+		same method, but need .(filetype) at end of name
+		also changes modification time of file if it already exists
+
+	cat - prints content of file in the terminal
+
+	echo - writes text to the terminal, but with redirects (>) can put output into a file
+	       can only do one piece of text, if you do it again it will replace previously echoed content
+	       echo "Whaddup" > camel.txt
+
+Removing/moving Files and Folders
+	rm - permanently removes files and directories from computer **DOES NOT GO IN TRASH**
+	     won't work if directory has content in it
+			to bypass, rm -rf will delete directory and everything in it
+	rmdir - same, but for empty directories
+	        is safer if you want to be catious about deleting directories with things in them
+		
+	
+	mv - moves files and folders
+	     input mv, what you want to move, and the destination (can be relative or absolute path)
+	     	mv file .. - moves specific file up
+	     if the destination does not exist, it will rename the file instead
+	     	can also move and rename at the same time
+			mv file ../newnamefile
+
+	cp - copy file and empty folder
+	     similiar to mv, can also rename things
+	     to copy folder with contents, need to add -r flag
+

@@ -1,0 +1,260 @@
+/** {
+    text-decoration: underline magenta wavy;
+    border: 2px solid cyan;
+}*/
+
+html{
+    font-size: 1.2vw;
+}
+
+#intro{
+    width: 400px;
+    height: 400px;  
+}
+
+img{
+    width: 350px;
+    height: 350px;
+    /*border-color: blue teal red yellow;
+    border-width: 5px;
+    border-style: solid dashed none dotted*/
+    /*to effect borders, need border style and size first
+    style order top, left, bottom, right*/
+    /*border: solid pink 5px;
+    border-left-width: 20px;
+    shorthand multiple styles, can use more specific selectors to override*/
+    border: 10px solid black;
+    padding: 100px 5%;
+    /* style order top, left, bottom, right or top, left/right, bottom or top/bottom and left/right
+    can remove padding by- padding: 0;*/
+    margin: 1em;
+    /*Similiar to padding, just between elements instead of between container and border
+    body has default a small margin, can set to 0 to eliminate in case you want an element to go across entire page
+    margin collapsing occurs usually between adjacent children and only top and bottom
+    old coding for centering things-- margin: 0 auto;
+    text-align can center things inside the box, ^ centers things for the whole page*/
+    /*box-sizing: border-box;
+    content-box is the default, border-box sets total size of box to set size, while content-box allows things to shift around if a box size changes*/
+    outline: solid 10px lightslategray;
+    /*outlines are like borders but do not take up space. They are more limited than borders. can set outline to none to remove outlines
+    removing an outline removes browsers default focus style so should add a focus effect for accessibility*/
+}
+
+#sheet{
+    width: 1000px;
+}
+
+#saiyan{
+    width: 800px;
+    height: 450px;
+}
+
+/*max-width/height, min-width/height, width, height affects content sizes*/
+
+/*.poem{
+    color: blue;
+    width: 500px;
+    font-style: italic;
+}this is a class selector, have the name make sense in html as an id for a specific element using class=""
+
+nav a {
+    font-size: 1.5rem;
+    text-decoration: overline red;
+}this is a selector that selects all elements nested inside another element, can work with class selector as well (this one is all anchors inside a nav bar)*/
+
+img + p, p + p{
+    text-decoration: line-through;
+}/*combination selectors, read right from left paragraph that is adjacent to img is the first one, p is being altered*/
+
+li > ol{
+    font-size: 0.8em;
+}/*selector reading the direct descendant of the first element, this example the ol is the direct descendant of li*/
+
+/*h1, a, h2{
+    color: blue;
+}A mutli selector, all elements will be blue in this example. Helps reduce duplication*/
+
+input, textarea:focus{
+    background-color: rgb(245, 147, 147);
+}
+
+/*p:last-of-type {
+    background-color: magenta;*/
+
+
+/*li :nth-of-type(2n) {
+    background-color: green;
+}examples of psuedo classes. The last one has a formula for every other*/
+
+nav :nth-of-type(2n) {
+    background-color: hsla(180, 2%, 53%, 0.3);
+}/*space is required here when normally cannot be there, because this is affecting nested elements*/
+
+h2:first-letter {
+    font-size:2em;
+}
+
+/*nav:hover{
+    color: blue;
+}*/
+
+/*p{
+    color: green;
+    background-image: url("https://d275t8dp8rxb42.cloudfront.net/pokemon/portrait/Aegislash.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+} a lot of background stuff, can also shorthand with background:x*/
+
+
+ input::placeholder{
+    color: black;
+    font-size: 10px;
+}
+
+/*input[type="text"]{
+    background-color: aqua;
+}
+
+img[src*="steam"]{
+    width: 300px;
+}Examples of attribute selectors, selects all elemtn with specified value.[class*=] ^= is beggining, $= is end, *= is contains*/
+
+/*Specificity from least to most specific:
+    1.element
+    2.class
+    3.id
+    4.inline-style
+    5.!important
+More specific selectors take priority over less specific ones, and more selectors beat fewer ones when using same level of specificity
+can also use specificity calc
+exact same specificity, the latest wins
+
+
+https://flukeout.github.io/ great game to practice*/
+
+
+/*Display types
+display: inline;(i, image, span)-takes as much space as needed, ignores width and height, next inline item is side by side
+display: block;(form, div, section)-100% of parent width unless set via width or max-width, can modify width and height with css, next item is on seperate line
+display: inline-block;-hybrid, side by side like inline but respects width and height like block*/
+
+/*FLEXBOX-use -->  display: flex; then the following commands:
+justify-content: flex-start flex-end center space-between space-around space-evenly: left and right spacing
+align-items: flex-start flex-end center baseline stretch: up and down spacing
+order: integer: -1, 0, 1 etc.: order of items
+flex-direction: row row-reverse column column-reverse: type of sorting
+flex-wrap: no-wrap wrap wrap-reverse: wrapping around lines
+(above 2 can be combined for flex-flow:direction wrap-type;)
+align-self: flex-start flex-end center baseline stretch: effects specified items, not all
+align-content: flex-start flex-end center space-between space-around space-evenly stretch
+*/
+
+/*Position propert defaults to static, non-static is considered positioned
+position: relative; moves things relative to static position, does not effect flow of document
+absolute; similiar to relative, but original space is not reserved from the static space
+can use top, left, right, bottom to slide things around
+fixed; positions based of a viewpoint, and is fixed there when you scroll*/
+
+/*z-index controls positioning along the z-axis using a number value (-1, 0, 1, etc) to assign order, higher numbers are in front, lower behind, 0 is default
+z-index: 1;*/
+
+
+/*@media () {} use this to target a specific thing for a specific rule (makes responsive websites) (used for variable states i.e. screen size). example:
+@media (max-width: 1000px)
+    body {
+        background-color: skyblue
+    }
+}
+Best practice to design mobile first, then media query into larger screens*/
+
+/*transition:property duration function delay [,...] example
+    h1{
+    transition: color 1.5s;
+}
+
+h1:hover{
+    color: blue
+}can do multiple things at once, and make differnet thing shappen at different timeds using a comma
+timing function sheet: easings.net*/
+
+
+
+
+
+
+
+
+
+/*h1{ 
+    color:lawngreen;
+}
+body{
+    background-color: aqua;
+}
+li :hover{
+    background-color: darkslategrey;
+}
+
+h2{
+    color: coral;
+    background-color: blue;
+}
+
+body{
+    background-color: #1bf7b595;
+}
+
+h1 {
+    background-color: rgba(255, 255, 255, 0.5);
+    background-color: hsl(0, 50%, 50%);
+    color: hsla(74, 50%, 50%, 1);
+    text-align: center;
+    font-weight: 100;
+    letter-spacing: 20px;
+    font-size: 10vw;
+}
+
+p {
+    text-align: left;
+    font-weight: bold;
+    /*line-height: 2;
+    font-size: larger;
+    word-spacing: 40px;
+    text-indent: 50px;
+    
+references for css google, google fonts, mdn, css gradientio, color picker
+
+html{
+    font-size: 1.5vw;
+}
+
+body {
+    background: linear-gradient(45deg,#00ffff,#cb7be3);
+  }
+    
+h1{
+    font-size: 2rem;
+    font-family: Nosifer, fantasy
+    https://fonts.google.com/
+}
+
+h2{
+    text-decoration: line-through wavy red;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: hsla(180, 100%, 50%, 0.5);
+    text-shadow: 5px -5px 10px hsla(0, 100%, 50%, 0.5),-5px -5px 10px hsla(90, 100%, 50%, 0.5);
+
+}
+
+a {
+    text-decoration: none;
+}*/
+
+
+/*Proffesional CSS Guidelines
+avoid !important
+generally, prefer classes over ids
+"why comments in CSS are important
+adopt and use a naming scheme"*/
