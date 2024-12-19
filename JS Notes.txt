@@ -485,14 +485,6 @@ throw - used to make customised error messages
 	can be used to simplify the type of error or make a better user/coder experience
 
 throw new - similiar, but creates a new error object which gives better info on the error
-
-
-laptop bag
-laptop decals
-	cruise and mimikyu
-hue
-tapple
-(wavelength)
 		      
 
 
