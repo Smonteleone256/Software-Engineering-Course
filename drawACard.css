@@ -1,0 +1,26 @@
+html {
+  outline: 0;
+  min-width: 100%;
+  min-height: 100%;
+  margin-top: 3rem;
+}
+
+body {
+  background: #7633ff;
+  font-size: 1.2rem;
+}
+
+button {
+  background: #25dd18;
+  color: #7633ff;
+  font-size: 2rem;
+  display: block;
+  margin: 0 auto;
+  box-sizing: content-box;
+  height: 4rem;
+  width: 12rem;
+}
+
+button:hover {
+  color: #ffffff;
+}
