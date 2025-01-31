@@ -1,0 +1,19 @@
+body {
+  background-color: #ada6a6;
+}
+
+#starters {
+  color: #ffffff;
+  background: #d40202;
+  font-size: 1.7rem;
+  display: block;
+  margin: 0 auto;
+  box-sizing: content-box;
+  height: 4rem;
+  width: 12rem;
+}
+
+#starters:hover {
+  background: #ffffff;
+  color: #d40202;
+}

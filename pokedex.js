@@ -93,8 +93,7 @@
 
 // //Part 4
 
-// let startersPresent = false;
-let starters = document.getElementById("starters");
+startersPresent = false;
 
 function randomIntUrl(min, max) {
   const minCeiled = Math.ceil(min);
@@ -103,15 +102,6 @@ function randomIntUrl(min, max) {
 }
 
 function newStarter() {
-  // if ((startersPresent = true)) {
-  //   document.getElementById("img1").src = "";
-  //   document.getElementById("img2").src = "";
-  //   document.getElementById("img3").src = "";
-  //   document.getElementById("p1").textContent = "";
-  //   document.getElementById("p2").textContent = "";
-  //   document.getElementById("p3").textContent = "";
-  //   startersPresent = false;
-  // } else {
   fetch("https://pokeapi.co/api/v2/pokemon/?limit=6000")
     .then((response) => response.json())
     .then((data) => {
@@ -184,27 +174,25 @@ function newStarter() {
             });
         });
     });
-  console.log("hi");
-  // }
+  startersPresent = true;
 }
 
-// function checkStartersPresent() {
-//   if (startersPresent === true) {
-//     console.log("true!");
-//     document.getElementById("img1").src = "";
-//     document.getElementById("img2").src = "";
-//     document.getElementById("img3").src = "";
-//     document.getElementById("p1").textContent = "";
-//     document.getElementById("p2").textContent = "";
-//     document.getElementById("p3").textContent = "";
-//     newStarter();
-//   } else {
-//     console.log("false!");
-//     newStarter();
-//   }
-// }
+function checkStartersPresent() {
+  if (startersPresent) {
+    const images = document.querySelectorAll("img");
+    images.forEach((image) => {
+      image.remove();
+    });
+    document.getElementById("p1").textContent = "";
+    document.getElementById("p2").textContent = "";
+    document.getElementById("p3").textContent = "";
+    newStarter();
+  } else {
+    newStarter();
+  }
+}
 
-starters.addEventListener("click", newStarter);
+starters.addEventListener("click", checkStartersPresent);
 
 // # Page breaks are treated just like newlines.
 // # Soft hyphens followed by newlines vanish.
