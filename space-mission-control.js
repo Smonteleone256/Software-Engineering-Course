@@ -1,45 +1,107 @@
-// Task 1: Declare The Task Array and The Interval ID
-// TODO: Begin by declaring an array to hold your one-time tasks (`oneTimeTasks`) and variables
-// for any interval IDs you'll need for continuous tasks (`monitoringTaskId`).
+let oneTimeTasks = [];
+let monitoringTaskId = [];
+let monitoringTaskCount = 0;
+let intervalId;
+let countdownIntervalId;
+let fuelRefillId;
+let fuelLevel = 0;
+let astronautCount = 4;
+let launchPadPrepared = false;
 
-// Task 2: Add One-Time Task Function
 function addOneTimeTask(func, delay) {
-  // TODO: Write a function named `addOneTimeTask` that accepts a function (`func`) and a delay
-  // (`delay`) as parameters. This function should add an object containing both parameters into the
-  // `oneTimeTasks` array.
+  let newTask = { function: func, delay: delay };
+  oneTimeTasks.push(newTask);
 }
 
-// Task 3: Run One-Time Tasks Function
 function runOneTimeTasks() {
-  // TODO: Create a function named `runOneTimeTasks` that iterates over the `oneTimeTasks` array and
-  // uses `setTimeout` to schedule each task according to its delay.
+  for (i = 0; i < oneTimeTasks.length; i++) {
+    duration = 20;
+    setTimeout(oneTimeTasks[i].function, oneTimeTasks[i].delay);
+  }
 }
 
-// Task 4: Start Monitoring Function
 function startMonitoring() {
-  // TODO: Write a function named `startMonitoring` that uses `setInterval` to simulate continuous
-  // monitoring. This function should print a message every few seconds and store the interval ID
-  // in `monitoringTaskId`.
+  if (!intervalId) {
+    intervalId = setInterval(monitor, 3000);
+    monitoringTaskId += intervalId;
+  }
 }
 
-// Task 5: Stop Monitoring Function
+function monitor() {
+  monitoringTaskCount++;
+  console.log(`Check ${monitoringTaskCount}`);
+}
+
 function stopMonitoring() {
-  // TODO: Implement a function named `stopMonitoring` that stops the continuous monitoring by using
-  // `clearInterval` on `monitoringTaskId`.
+  clearInterval(monitoringTaskId);
+  intervalId = null;
+  console.log("Monitoring stopped");
 }
 
-// Task 6: Start Countdown Function
-function startCountdown(duration) {
-  // TODO: Create a function named `startCountdown` that takes a duration parameter. Use `setInterval`
-  // to decrease the countdown every second and print the remaining time. Use `clearInterval` to stop
-  // the countdown when it reaches zero, printing a "Liftoff!" message.
+function startCountdown() {
+  console.log(`Countdown started: Liftoff T-minus 10 seconds`);
+  duration = 10;
+
+  if (!countdownIntervalId) {
+    countdownIntervalId = setInterval(() => {
+      if (duration === 0) {
+        console.log("Liftoff!");
+        clearInterval(countdownIntervalId);
+        countdownIntervalId = null;
+        return;
+      } else {
+        console.log(`Time remaining: ${duration} seconds`);
+        duration--;
+      }
+    }, 1000);
+  }
 }
 
-// Task 7: Schedule Pre-Launch Activities and Launch
+function fuelRefill() {
+  if (fuelLevel === 0) {
+    fuelLevelId = setInterval(() => {
+      if (fuelLevel === 100) {
+        console.log("Fuel Tank Full");
+        clearInterval(fuelLevelId);
+        fuelLevelId = null;
+        return;
+      } else {
+        console.log(`Fuel Level: ${fuelLevel}%`);
+        fuelLevel += 10;
+      }
+    }, 10);
+  }
+}
+
+function astronautsPresent() {
+  if (astronautCount === 4) {
+    console.log(`Astronauts on board: ${astronautCount}, ready for boarding`);
+    launchPadPrepared = true;
+  } else {
+    console.log("Not all crew accounted for, aborting mission");
+    clearInterval(countdownIntervalId);
+    stopMonitoring();
+  }
+}
+
+function launchPadStatus() {
+  if (launchPadPrepared) {
+    console.log("Launch Pad Prepared");
+    return;
+  } else {
+    console.log("Launch Pad not prepared, aborting mission");
+    clearInterval(countdownIntervalId);
+    stopMonitoring();
+  }
+}
 function scheduleMission() {
-  // TODO: Use the functions you've created to schedule the pre-launch system check, start and stop
-  // monitoring, and execute the countdown. Make sure to adjust the delays appropriately to simulate
-  // a real mission timeline.
+  addOneTimeTask(startMonitoring, 0);
+  addOneTimeTask(fuelRefill, 2000);
+  addOneTimeTask(astronautsPresent, 5000);
+  addOneTimeTask(launchPadStatus, 7000);
+  addOneTimeTask(startCountdown, 13000);
+  console.log(oneTimeTasks);
+  runOneTimeTasks();
 }
 
 scheduleMission(); // Starts the mission.
