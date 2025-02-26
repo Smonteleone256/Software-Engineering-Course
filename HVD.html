@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="HVD.css" />
+    <title>Happy Valentine's Day!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body id="body">
+    <h1>
+      Happy Valentines Day!!!
+    </h1>
+    <script>
+      document.addEventListener("mousemove", function (e) {
+        let body = document.querySelector("body");
+        let heart = document.createElement("span");
+
+        let x = e.offsetX;
+        let y = e.offsetY;
+
+        heart.style.left = x + "px";
+        heart.style.top = y + "px";
+        body.appendChild(heart);
+
+        setTimeout(function () {
+          heart.remove();
+        }, 1000);
+
+        let size = Math.random() * 80;
+        heart.style.width = 20 + size + "px";
+        heart.style.height = 20 + size + "px";
+
+        let transformValue = Math.random() * 360;
+        heart.style.transform = `rotate(${transformValue}deg)`;
+      });
+    </script>
+    <div id="video">
+      <iframe
+        id="vimeoVid"
+        src="https://player.vimeo.com/video/502511643?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479?&autoplay=1&loop=1&#t=00:07"
+        frameborder="0"
+        loop="1"
+        allow="autoplay"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        style="position: absolute; top: 17%; left: 25%; width: 50%; height: 50%"
+        title="You&#039;re Still The One - Shania Twian ( Teddy Swims Cover ) Lyrics"
+      ></iframe>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script type="text/javascript" src="HVD.js"></script>
+  </body>
+</html>
