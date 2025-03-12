@@ -27,7 +27,7 @@ john.calcAge();
 //This allows any created object to inherit all prototype properties default to JS
 
 //JS Classes
-//Classes can not be hoisted(needs to be declared before suing), are first class citizens(functions behiond the scenes), and are executed in strict mode
+//Classes can not be hoisted(needs to be declared before using), are first class citizens(functions behind the scenes), and are executed in strict mode
 //There are two ways to create a class
 
 //The first is class declaration
