@@ -1,4 +1,4 @@
-import { inventory, addItem, listItem, removeItem } from "./inventory.mjs";
+import { inventory, addItems, listItems, removeItems } from "./inventory.mjs";
 
-addItem("apples", "grapes", "potatoes");
-removeItem("grapes");
+addItems("apples", "grapes", "potatoes");
+removeItems("grapes", "potatoes");

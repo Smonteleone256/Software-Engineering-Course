@@ -1,12 +1,18 @@
-export { inventory, addItem, removeItem, listItem };
+export { inventory, addItems, removeItems, listItems };
 
 const inventory = [];
-function addItem(item) {
-  inventory.push(item);
+function addItems(...items) {
+  for (const item of items) {
+    inventory.push(item);
+  }
+  console.log(inventory);
 }
-function removeItem(item) {
-  inventory.splice(inventory.indexOf(item), 1);
+function removeItems(...items) {
+  for (const item of items) {
+    inventory.splice(inventory.indexOf(item), 1);
+  }
+  console.log(inventory);
 }
-function listItem() {
+function listItems() {
   console.log(inventory);
 }
