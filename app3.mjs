@@ -1,0 +1,1 @@
+import "./globalConfig.mjs";
