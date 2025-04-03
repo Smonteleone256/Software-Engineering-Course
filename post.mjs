@@ -1,8 +1,9 @@
-function post(title, content) {
+export default function post(title, content) {
   this.title = title;
   this.content = content;
-  function publish() {
+
+  this.publish = function () {
     console.log(`${this.title}`);
     console.log(`${this.content}`);
-  }
+  };
 }
