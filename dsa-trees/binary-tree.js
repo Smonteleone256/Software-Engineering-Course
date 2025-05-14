@@ -39,40 +39,25 @@ class BinaryTree {
 
       return maxDepthHelper(this.root) + 1;
     };
+    this.maxSum = function (root) {
+      let maxSum = -Infinity;
 
-    // Returns the maximum path sum in the subtree with the given root.
-    // Also updates 'result' with the maximum path sum.
-    this.maxSum = function (root, result) {
-      // Base case: return 0 for a null node
-      if (root === null) {
-        return 0;
+      function maxGain(node) {
+        if (!node) {
+          return 0;
+        }
+
+        let leftGain = Math.max(maxGain(node.left), 0);
+        let rightGain = Math.max(maxGain(node.right), 0);
+
+        let currentSum = node.val + leftGain + rightGain;
+        maxSum = Math.max(maxSum, currentSum);
+
+        return node.val + Math.max(leftGain, rightGain);
       }
 
-      // Calculate maximum path sums for left and right subtrees
-      const leftSum =
-        root.left === null
-          ? 0
-          : Math.max(0, this.maxSum.bind(this)(root.left, result));
-      const rightSum =
-        root.right === null
-          ? 0
-          : Math.max(0, this.maxSum.bind(this)(root.right, result));
-
-      // Update 'result' with the maximum path sum passing through the current node
-      result.value = Math.max(result.value, leftSum + rightSum + root.val);
-
-      // Return the maximum path sum rooted at this node
-      return root.val + Math.max(leftSum, rightSum);
-    };
-
-    // Returns the maximum path sum in the tree with the given root
-    this.maxPathSum = function (root) {
-      const result = { value: root.val };
-
-      // Compute maximum path sum and store it in 'result'
-      this.maxSum(root, result);
-
-      return result.value;
+      maxGain(root);
+      return maxSum;
     };
 
     this.nextLarger = function (lowerBound) {
@@ -109,46 +94,5 @@ myBinaryTree.root.left.left = new BinaryTreeNode(3);
 myBinaryTree.root.left.right = new BinaryTreeNode(7);
 myBinaryTree.root.right.left = new BinaryTreeNode(13);
 myBinaryTree.root.right.left.left = new BinaryTreeNode(12);
-
-console.log(myBinaryTree);
-myBinaryTree.maxSum();
-
-let myEmptyTree = new BinaryTree();
-console.log(myEmptyTree);
-
-/** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
- * The path doesn't need to start at the root, but you can't visit a node more than once. */
-
-myBinaryTree.maxSum();
-
-/** Further study!
- * areCousins(node1, node2): determine whether two nodes are cousins
- * (i.e. are at the same level but have different parents. ) */
-
-// areCousins(node1, node2) {
-
-// }
-
-// /** Further study!
-//  * serialize(tree): serialize the BinaryTree object tree into a string. */
-
-// static serialize() {
-
-// }
-
-// /** Further study!
-//  * deserialize(stringTree): deserialize stringTree into a BinaryTree object. */
-
-// static deserialize() {
-
-// }
-
-// /** Further study!
-//  * lowestCommonAncestor(node1, node2): find the lowest common ancestor
-//  * of two nodes in a binary tree. */
-
-// lowestCommonAncestor(node1, node2) {
-
-// }
 
 module.exports = { BinaryTree, BinaryTreeNode };
