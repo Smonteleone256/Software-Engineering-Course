@@ -1,5 +1,3 @@
-/** BinaryTreeNode: node for a general tree. */
-
 class BinaryTreeNode {
   constructor(val, left = null, right = null) {
     this.val = val;
