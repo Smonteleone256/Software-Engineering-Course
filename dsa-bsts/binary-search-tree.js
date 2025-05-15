@@ -8,76 +8,94 @@ class Node {
 
 class BinarySearchTree {
   constructor(root = null) {
-    this.root = root;
+    this.root = root ? new Node(root) : null;
   }
 
-  /** insert(val): insert a new node into the BST with value val.
-   * Returns the tree. Uses iteration. */
-
   insert(val) {
-    let currentNode = this.root;
-    while (currentNode) {
-      if (val === currentNode) return console.log("Node already exists");
+    if (!this.root) {
+      this.root = new Node(val);
+      return this;
     }
-    if (val > currentNode && !currentNode.right) {
-      val === currentNode.right;
-      return;
-    } else if (val < currentNode && !currentNode.left) {
-      val === currentNode.left;
-      return;
-    } else if (val > currentNode) {
-      currentNode = currentNode.right;
-    } else {
-      currentNode = currentNode.left;
+
+    let currentNode = this.root;
+    while (true) {
+      if (val === currentNode.val) {
+        console.log("Node already exists");
+        return this;
+      }
+
+      if (val < currentNode.val) {
+        if (!currentNode.left) {
+          currentNode.left = new Node(val);
+          return this;
+        }
+        currentNode = currentNode.left;
+      } else {
+        if (!currentNode.right) {
+          currentNode.right = new Node(val);
+          return this;
+        }
+        currentNode = currentNode.right;
+      }
     }
   }
 
   /** insertRecursively(val): insert a new node into the BST with value val.
    * Returns the tree. Uses recursion. */
 
-  insertRecursively(val) {}
+  insertRecursively(val) {
+    if (!this.root) {
+      this.root = new Node(val);
+      return this;
+    }
+  }
 
   find(val) {
-    let currentNode = this;
+    if (!this.root) return undefined;
+    let currentNode = this.root;
     while (currentNode) {
       if (currentNode.val === val) return currentNode;
       currentNode =
         val < currentNode.val ? currentNode.left : currentNode.right;
     }
+    return undefined;
   }
 
-  findRecursively(val) {
-    let currentNode = this;
-    if (val === currentNode.val) return currentNode;
-    if (val < currentNode.val)
-      return this.findRecursively(val, currentNode.left);
-    if (val > currentNode.val)
-      return this.findRecursively(val, currentNode.right);
+  findRecursively(val, node = this.root) {
+    if (!node) return undefined;
+    if (val === node.val) return node;
+    if (val < node.val) return this.findRecursively(val, node.left);
+    if (val > node.val) return this.findRecursively(val, node.right);
   }
 
   dfsPreOrder(node = this.root) {
     let visited = [];
-    visited.push(node.val);
-    this.dfsPreOrder(node.left);
-    this.dfsPreOrder(node.right);
+    if (node) {
+      visited.push(node.val);
+      this.dfsPreOrder(node.left);
+      this.dfsPreOrder(node.right);
+    }
 
     return visited;
   }
 
   dfsInOrder(node = this.root) {
     let visited = [];
-    this.dfsPreOrder(node.left);
-    visited.push(node.val);
-    this.dfsPreOrder(node.right);
+    if (node) {
+      this.dfsInOrder(node.left);
+      visited.push(node.val);
+      this.dfsInOrder(node.right);
+    }
 
     return visited;
   }
 
-  dfsPostOrder(node = this.root) {
-    let visited = [];
-    this.dfsPreOrder(node.left);
-    this.dfsPreOrder(node.right);
-    visited.push(node.val);
+  dfsPostOrder(node = this.root, visited = []) {
+    if (node) {
+      this.dfsPostOrder(node.left);
+      this.dfsPostOrder(node.right);
+      visited.push(node.val);
+    }
 
     return visited;
   }
@@ -106,6 +124,7 @@ myBST.insert(5);
 myBST.insert(50);
 
 console.log(myBST);
+myBST.dfsPostOrder();
 
 /** Further Study!
  * remove(val): Removes a node in the BST with the value val.
