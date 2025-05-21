@@ -48,6 +48,30 @@ class BinarySearchTree {
       this.root = new Node(val);
       return this;
     }
+    let currentNode = this.root;
+
+    function irHelper(currentNode, val) {
+      if (val === currentNode.val) {
+        console.log("Node already exists");
+        return currentNode;
+      }
+      if (currentNode.left && val < currentNode.val) {
+        currentNode = currentNode.left;
+        return irHelper(currentNode.left, val);
+      }
+      if (currentNode.right && val > currentNode.val) {
+        currentNode = currentNode.right;
+        return irHelper(currentNode.right, val);
+      }
+      if (!currentNode.left && val < currentNode.val) {
+        currentNode.left = new Node(val);
+        return currentNode.left;
+      }
+      if (!currentNode.right && val > currentNode.val) {
+        currentNode.right = new Node(val);
+        return currentNode.right;
+      }
+    }
   }
 
   find(val) {
@@ -68,23 +92,21 @@ class BinarySearchTree {
     if (val > node.val) return this.findRecursively(val, node.right);
   }
 
-  dfsPreOrder(node = this.root) {
-    let visited = [];
+  dfsPreOrder(node = this.root, visited = []) {
     if (node) {
       visited.push(node.val);
-      this.dfsPreOrder(node.left);
-      this.dfsPreOrder(node.right);
+      visited = visited.concat(this.dfsPreOrder(node.left));
+      visited = visited.concat(this.dfsPreOrder(node.right));
     }
 
     return visited;
   }
 
-  dfsInOrder(node = this.root) {
-    let visited = [];
+  dfsInOrder(node = this.root, visited = []) {
     if (node) {
-      this.dfsInOrder(node.left);
+      visited = visited.concat(this.dfsPreOrder(node.left));
       visited.push(node.val);
-      this.dfsInOrder(node.right);
+      visited = visited.concat(this.dfsPreOrder(node.right));
     }
 
     return visited;
@@ -92,8 +114,8 @@ class BinarySearchTree {
 
   dfsPostOrder(node = this.root, visited = []) {
     if (node) {
-      this.dfsPostOrder(node.left);
-      this.dfsPostOrder(node.right);
+      visited = visited.concat(this.dfsPreOrder(node.left));
+      visited = visited.concat(this.dfsPreOrder(node.right));
       visited.push(node.val);
     }
 
@@ -124,24 +146,6 @@ myBST.insert(5);
 myBST.insert(50);
 
 console.log(myBST);
-myBST.dfsPostOrder();
-
-/** Further Study!
- * remove(val): Removes a node in the BST with the value val.
- * Returns the removed node. */
-
-//   remove(val) {}
-
-//   /** Further Study!
-//    * isBalanced(): Returns true if the BST is balanced, false otherwise. */
-
-//   isBalanced() {}
-
-//   /** Further Study!
-//    * findSecondHighest(): Find the second highest value in the BST, if it exists.
-//    * Otherwise return undefined. */
-
-//   findSecondHighest() {}
-// }
+myBST.insertRecursively(14);
 
 module.exports = BinarySearchTree;
