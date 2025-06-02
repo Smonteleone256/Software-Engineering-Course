@@ -56,11 +56,9 @@ class BinarySearchTree {
         return currentNode;
       }
       if (currentNode.left && val < currentNode.val) {
-        currentNode = currentNode.left;
         return irHelper(currentNode.left, val);
       }
       if (currentNode.right && val > currentNode.val) {
-        currentNode = currentNode.right;
         return irHelper(currentNode.right, val);
       }
       if (!currentNode.left && val < currentNode.val) {
@@ -72,6 +70,7 @@ class BinarySearchTree {
         return currentNode.right;
       }
     }
+    return irHelper(currentNode, val);
   }
 
   find(val) {
@@ -135,17 +134,5 @@ class BinarySearchTree {
     return visited;
   }
 }
-
-let myBST = new BinarySearchTree(13);
-myBST.insert(15);
-myBST.insert(20);
-myBST.insert(10);
-myBST.insert(12);
-myBST.insert(1);
-myBST.insert(5);
-myBST.insert(50);
-
-console.log(myBST);
-myBST.insertRecursively(14);
 
 module.exports = BinarySearchTree;
