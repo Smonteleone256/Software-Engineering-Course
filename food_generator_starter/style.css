@@ -1,0 +1,37 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.food-display, .buttons-display {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid lightseagreen;
+  border-radius: 5px;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.error-response {
+  background-color: red;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 1em;
+}
+
+button {
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1em 2em;
+}
+
+button:active {
+  background-color: lightseagreen;
+}
+
+button:hover {
+  cursor: pointer;
+}
