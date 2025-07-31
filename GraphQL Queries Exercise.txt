@@ -1,0 +1,75 @@
+{
+  allFilms {
+    films{
+      title
+    }
+  }
+}
+
+query MyQuery {
+  person (id: "cGVvcGxlOjQ=") {
+    name
+  }
+}
+
+query MyQuery {
+  allPlanets(first: 5) {
+    edges {
+      node {
+        name
+      }
+    }
+  }
+}
+
+query MyQuery {
+  allStarships(first: 3) {
+    starships {
+      name
+      model
+    }
+  }
+}
+
+query MyQuery {
+  allPeople(first: 5) {
+    edges {
+      node {
+        name
+        starshipConnection {
+          starships {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+
+query MyQuery {
+  allSpecies(last: 5) {
+    species {
+      name
+      language
+    }
+  }
+}
+
+query MyQuery {
+  allPlanets(last: 5) {
+    planets {
+      climates
+      name
+    }
+  }
+}
+
+query MyQuery {
+  allVehicles(first: 3) {
+    vehicles {
+      name
+      costInCredits
+    }
+  }
+}
+
