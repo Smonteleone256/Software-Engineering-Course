@@ -1,35 +1,3 @@
-// categories is the main data structure for the app; it looks like this:
-
-//  [
-//    { title: "Math",
-//      clues: [
-//        {question: "2+2", answer: 4, showing: null},
-//        {question: "1+1", answer: 2, showing: null}
-//        ...
-//      ],
-//    },
-//    { title: "Literature",
-//      clues: [
-//        {question: "Hamlet Author", answer: "Shakespeare", showing: null},
-//        {question: "Bell Jar Author", answer: "Plath", showing: null},
-//        ...
-//      ],
-//    },
-//    ...
-//  ]
-
-// working APIs
-// https://rithm-jeopardy.herokuapp.com/api/category?id=4
-// https://rithm-jeopardy.herokuapp.com/api/categories?count=100
-
-// async function request() {
-//   fetch(`https://rithm-jeopardy.herokuapp.com/api/categories?count=100`)
-//     .then((response) => response.json())
-//     .then((data) => console.log(data));
-// }
-
-//get all 14 CATEGORIES ^
-
 function getRandomInteger(min, max) {
   min = Math.ceil(min); // Ensure min is rounded up to the nearest whole number
   max = Math.floor(max); // Ensure max is rounded down to the nearest whole number
@@ -64,6 +32,21 @@ const qList = qCollection.children;
 const questionInfo = [];
 const question = qCollection.getElementsByTagName("td");
 const start = document.getElementById("start");
+
+function handleClick() {
+  for (let i = 0; i < question.length; i++) {
+    question[i].addEventListener("click", function () {
+      console.log("click!");
+      if (questionInfo[i].showing === null) {
+        this.innerText = questionInfo[i].question;
+        questionInfo[i].showing = "question";
+      } else if (questionInfo[i].showing === "question") {
+        this.innerText = questionInfo[i].answer;
+        questionInfo[i].showing = "answer";
+      }
+    });
+  }
+}
 
 async function fillTable() {
   await getCategoryIds();
@@ -102,64 +85,59 @@ async function fillTable() {
   handleClick();
 }
 
-function handleClick() {
-  for (let i = 0; i < question.length; i++) {
-    question[i].addEventListener("click", function () {
-      console.log("click!");
-      if (questionInfo[i].showing === null) {
-        this.innerText = questionInfo[i].question;
-        questionInfo[i].showing = "question";
-      } else if (questionInfo[i].showing === "question") {
-        this.innerText = questionInfo[i].answer;
-        questionInfo[i].showing = "answer";
-      }
-    });
-  }
-}
-
-/** Wipe the current Jeopardy board, show the loading spinner,
- * and update the button used to fetch data.
- */
-
 function removeElementsByClass(className) {
   const elements = document.getElementsByClassName(className);
   while (elements.length > 0) {
     elements[0].parentNode.removeChild(elements[0]);
   }
 }
+
+const loadingSpinner = document.getElementById("loadingSpinner");
+
+function showSpinner() {
+  loadingSpinner.style.display = "block"; // Or 'flex', 'grid' depending on layout
+}
+
+function hideSpinner() {
+  loadingSpinner.style.display = "none";
+}
 function showLoadingView() {
+  start.style.display = "none";
+  start.removeEventListener("click", startButton);
   removeElementsByClass("question");
   removeElementsByClass("category");
-  //show spinner
+  categories.clear();
+  showSpinner();
+  setTimeout(function () {
+    hideLoadingView();
+  }, 3000);
 }
 
-/** Remove the loading spinner and update the button used to fetch data. */
-
-function hideLoadingView() {}
-
-/** Start game:
- *
- * - get random category Ids
- * - get data for each category
- * - create HTML table
- * */
+function hideLoadingView() {
+  start.style.display = "block";
+  hideSpinner();
+  start.innerText = "Start!";
+  start.addEventListener("click", startButton);
+}
 
 function setupAndStart() {
-  start.addEventListener("click", function () {
-    if (start.innerText === "Restart!") {
-      showLoadingView();
-      start.innerText = "Start!";
-    } else {
-      fillTable();
-      start.innerText = "Restart!";
-    }
-  });
+  start.addEventListener("click", startButton);
 }
 
+function startButton(event) {
+  event.preventDefault();
+  if (start.innerText === "Restart!") {
+    showLoadingView();
+  } else {
+    fillTable();
+    start.innerText = "Restart!";
+  }
+}
+
+// showSpinner();
+
 document.addEventListener("DOMContentLoaded", function () {
-  start.addEventListener("click", async function (event) {
-    event.preventDefault();
-    setupAndStart();
-    //functions already made
-  });
+  hideSpinner();
+  setupAndStart();
+  //functions already made
 });
