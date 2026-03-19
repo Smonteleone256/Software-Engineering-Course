@@ -105,9 +105,9 @@ function newStarter() {
   fetch("https://pokeapi.co/api/v2/pokemon/?limit=6000")
     .then((response) => response.json())
     .then((data) => {
-      urlInt1 = data.results[randomIntUrl(0, 1302)].url;
-      urlInt2 = data.results[randomIntUrl(0, 1302)].url;
-      urlInt3 = data.results[randomIntUrl(0, 1302)].url;
+      urlInt1 = data.results[randomIntUrl(0, 1350)].url;
+      urlInt2 = data.results[randomIntUrl(0, 1350)].url;
+      urlInt3 = data.results[randomIntUrl(0, 1350)].url;
       fetch(`${urlInt1}`)
         .then((response) => response.json())
         .then((data) => {
@@ -121,9 +121,8 @@ function newStarter() {
               document.getElementById("p1").textContent += `${data.name}`;
               for (i = 0; i < data.flavor_text_entries.length; i++) {
                 if (data.flavor_text_entries[i].language.name === "en") {
-                  document.getElementById(
-                    "p1"
-                  ).textContent += `${data.flavor_text_entries[i].flavor_text}`;
+                  document.getElementById("p1").textContent +=
+                    `${data.flavor_text_entries[i].flavor_text}`;
                   break;
                 }
               }
@@ -143,9 +142,8 @@ function newStarter() {
               document.getElementById("p2").textContent += `${data.name}`;
               for (i = 0; i < data.flavor_text_entries.length; i++) {
                 if (data.flavor_text_entries[i].language.name === "en") {
-                  document.getElementById(
-                    "p2"
-                  ).textContent += `${data.flavor_text_entries[i].flavor_text}`;
+                  document.getElementById("p2").textContent +=
+                    `${data.flavor_text_entries[i].flavor_text}`;
                   break;
                 }
               }
@@ -165,9 +163,8 @@ function newStarter() {
               document.getElementById("p3").textContent += `${data.name}`;
               for (i = 0; i < data.flavor_text_entries.length; i++) {
                 if (data.flavor_text_entries[i].language.name === "en") {
-                  document.getElementById(
-                    "p3"
-                  ).textContent += `${data.flavor_text_entries[i].flavor_text}`;
+                  document.getElementById("p3").textContent +=
+                    `${data.flavor_text_entries[i].flavor_text}`;
                   break;
                 }
               }

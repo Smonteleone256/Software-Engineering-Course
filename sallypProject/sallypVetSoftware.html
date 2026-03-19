@@ -1,0 +1,1788 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vet Clinic Records</title>
+    <style>
+      :root {
+        --bg: #0f1117;
+        --panel: #171a23;
+        --muted: #9ea7bd;
+        --text: #f4f7ff;
+        --border: #2b3245;
+        --blue: #4f8dff;
+        --purple: #a675ff;
+        --danger: #ff6b7a;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .screen {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .brand-title {
+        margin: 18px 0 14px;
+        text-align: center;
+        font-size: clamp(2rem, 6vw, 3rem);
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        background: linear-gradient(95deg, #8f6bff, #4f8dff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .home-toolbar {
+        position: sticky;
+        top: 8px;
+        z-index: 20;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          rgba(23, 26, 35, 0.98),
+          rgba(23, 26, 35, 0.92)
+        );
+        padding: 10px 10px 6px;
+        margin-bottom: 12px;
+      }
+      .home-toolbar-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .home-toolbar-actions {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .home-settings-wrap {
+        margin-left: auto;
+      }
+      .home-labs-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .home-labs-count {
+        border: 1px solid #405377;
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        line-height: 1.1;
+        color: #dbe7ff;
+        background: #1a2237;
+      }
+      .home-settings-menu {
+        width: min(360px, calc(100vw - 38px));
+        max-height: min(72vh, 560px);
+        overflow-y: auto;
+        display: grid;
+        gap: 6px;
+        padding: 8px;
+      }
+      .home-settings-menu .menu-section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+      }
+      .home-settings-menu .menu-divider {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 4px 0 2px;
+      }
+      .home-settings-menu input,
+      .home-settings-menu button {
+        width: 100%;
+      }
+      .home-quick-row {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-bottom: 8px;
+      }
+      .center-search {
+        display: flex;
+        justify-content: center;
+        margin: 0 0 8px;
+      }
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: min(100%, 840px);
+      }
+      .search-row input {
+        flex: 1;
+        margin: 0;
+      }
+      .secondary-btn {
+        background: #202a41;
+        border: 1px solid #3a486a;
+      }
+      .secondary-btn:hover {
+        filter: brightness(1.08);
+      }
+      input,
+      textarea,
+      select,
+      button {
+        padding: 8px;
+        margin: 4px 0;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: #121624;
+        color: var(--text);
+      }
+      button {
+        cursor: pointer;
+        background: linear-gradient(90deg, var(--blue), var(--purple));
+        border: none;
+        color: #fff;
+        font-weight: 600;
+      }
+      button:hover {
+        filter: brightness(1.05);
+      }
+      button:focus-visible {
+        outline: 2px solid #c7d7ff;
+        outline-offset: 2px;
+      }
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        padding: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #8f6bff, #4f8dff);
+      }
+      .icon-btn .icon-plus {
+        font-size: 1.45rem;
+        line-height: 1;
+        font-weight: 500;
+      }
+      .icon-btn:focus-visible {
+        outline: 2px solid #f3f7ff;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 4px rgba(143, 107, 255, 0.32);
+      }
+      button.danger {
+        background: var(--danger);
+      }
+      textarea {
+        width: 100%;
+        min-height: 90px;
+      }
+      select {
+        background: #14192a;
+        color: #fff;
+      }
+      select:hover,
+      select:focus {
+        background: #18203a;
+        color: #fff;
+      }
+      .results {
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        background: var(--panel);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+      .nested {
+        margin-left: 18px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .error {
+        color: #ff8e9a;
+        font-size: 0.9rem;
+      }
+      .success {
+        color: #88ffb0;
+        font-size: 0.9rem;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .banner {
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
+      .banner.success {
+        background: #1f3a2c;
+      }
+      .banner.warning {
+        background: #4a3d1f;
+        color: #ffe7a3;
+      }
+      .banner.error {
+        background: #4a1f2c;
+      }
+      .visit-draft {
+        color: #ffd47a;
+      }
+      .visit-finalized {
+        color: #90ffaf;
+      }
+      .name-client {
+        color: var(--blue);
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+      .name-patient {
+        color: var(--purple);
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+      .attachment-thumb {
+        max-height: 80px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+      }
+      .attachment-link {
+        color: #b7cbff;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .form-stack {
+        display: grid;
+        gap: 14px;
+        margin-top: 8px;
+      }
+      .form-group {
+        display: grid;
+        gap: 6px;
+      }
+      .field-label {
+        font-weight: 600;
+      }
+      .actions-row {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .screen-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .section-gap {
+        margin-top: 18px;
+      }
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal {
+        max-width: 460px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        padding: 16px;
+        border-radius: 10px;
+      }
+      .modal.large {
+        max-width: 640px;
+        width: min(640px, calc(100vw - 28px));
+      }
+      .visit-selection-list {
+        max-height: 320px;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .visit-selection-item {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+      .row-main {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex: 1;
+        min-width: 0;
+      }
+      .menu-wrap {
+        position: relative;
+        margin-left: auto;
+      }
+      .menu-toggle {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        background: #232b40;
+        border: 1px solid var(--border);
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+        padding: 0;
+      }
+      .menu-toggle-line {
+        width: 14px;
+        height: 2px;
+        background: #dbe6ff;
+        border-radius: 2px;
+        display: block;
+      }
+      .menu-popover {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        min-width: 100px;
+        background: #1b2234;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 4px;
+        display: grid;
+        z-index: 40;
+      }
+      .menu-popover button {
+        margin: 0;
+        text-align: left;
+        border-radius: 6px;
+        background: transparent;
+        border: 0;
+        font-weight: 500;
+        padding: 7px 8px;
+      }
+      .menu-popover button:hover {
+        background: #27314b;
+        filter: none;
+      }
+      .menu-popover button.danger {
+        color: #ffd5db;
+      }
+      .visit-row {
+        cursor: pointer;
+      }
+      .visit-row:focus-visible {
+        outline: 2px solid #c7d7ff;
+        outline-offset: 2px;
+      }
+      .visit-context {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 10px;
+        margin: 8px 0 12px;
+      }
+      .global-header {
+        max-width: 980px;
+        margin: 0 auto 12px;
+      }
+      .brand-home-link {
+        border: 0;
+        background: none;
+        padding: 0;
+        width: 100%;
+      }
+      .brand-home-link:hover {
+        filter: none;
+      }
+      .brand-home-link .brand-title {
+        margin-top: 12px;
+      }
+      body.home-screen-active .brand-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin-top: 12px;
+      }
+      body:not(.home-screen-active) .brand-title {
+        font-size: clamp(1rem, 2.5vw, 1.35rem);
+        margin: 2px 0 8px;
+      }
+      body:not(.home-screen-active) .global-header {
+        margin-bottom: 4px;
+      }
+      .owner-link {
+        color: var(--blue);
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+      .chip-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .reminder-group {
+        margin-top: 12px;
+      }
+      .home-client-card {
+        padding: 12px;
+      }
+      .home-client-head {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      .home-client-name {
+        font-size: 1.05rem;
+        margin-bottom: 2px;
+      }
+      .home-client-metrics {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 8px 0 10px;
+      }
+      .home-metric {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #384563;
+        border-radius: 999px;
+        padding: 4px 9px;
+        font-size: 0.82rem;
+        color: #d5e4ff;
+        background: #1b2438;
+      }
+      .home-patient-list {
+        display: grid;
+        gap: 8px;
+      }
+      .home-patient-row {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 8px;
+      }
+      .home-contact-row {
+        margin-bottom: 8px;
+      }
+      .inventory-panel {
+        margin-bottom: 12px;
+      }
+      .inventory-summary {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .inventory-table {
+        display: grid;
+        gap: 8px;
+      }
+      .inventory-item-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+      }
+      .inventory-item-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 6px 0;
+      }
+      .inventory-adjust-row {
+        display: grid;
+        grid-template-columns: 120px 1fr auto auto auto;
+        gap: 8px;
+        align-items: center;
+      }
+      .inventory-log {
+        margin-top: 8px;
+        border-top: 1px solid var(--border);
+        padding-top: 8px;
+      }
+      .inventory-log-item {
+        margin-bottom: 6px;
+      }
+      .home-finance-summary {
+        margin-bottom: 12px;
+      }
+      .home-finance-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 10px;
+      }
+      .home-finance-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .home-finance-row {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 8px;
+      }
+      .home-finance-empty {
+        margin-top: 8px;
+      }
+      .home-reminders-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .home-reminders-controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .home-reminders-tiles {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .home-reminders-tile {
+        text-align: left;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 10px;
+      }
+      .home-reminders-tile .tile-title {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .home-reminders-tile .tile-count {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+      .reminders-list {
+        display: grid;
+        gap: 8px;
+      }
+      .reminder-list-row {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 10px;
+      }
+      .reminder-list-row-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .reminder-list-row .due-overdue {
+        color: #ffb3be;
+        font-weight: 600;
+      }
+      .reminder-list-row .due-soon {
+        color: #d5e4ff;
+      }
+      @media (max-width: 760px) {
+        .inventory-adjust-row {
+          grid-template-columns: 1fr;
+        }
+        .home-finance-grid {
+          grid-template-columns: 1fr;
+        }
+        .home-reminders-tiles {
+          grid-template-columns: 1fr;
+        }
+      }
+      .patient-reminder-section {
+        margin-top: 10px;
+      }
+      .patient-reminder-summary {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .patient-reminder-chip {
+        border: 1px solid #3b496a;
+        border-radius: 999px;
+        padding: 4px 9px;
+        font-size: 0.82rem;
+        background: #18223a;
+        color: #dbe7ff;
+      }
+      .patient-reminder-list {
+        display: grid;
+        gap: 8px;
+      }
+      .patient-reminder-item {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 10px;
+      }
+      .patient-reminder-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .patient-reminder-type {
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+      .patient-reminder-status {
+        border-radius: 999px;
+        padding: 3px 8px;
+        font-size: 0.78rem;
+        border: 1px solid transparent;
+        text-transform: capitalize;
+      }
+      .patient-reminder-status.overdue {
+        background: #4a1f2c;
+        border-color: #7a2f43;
+        color: #ffd5db;
+      }
+      .patient-reminder-status.due {
+        background: #4a3d1f;
+        border-color: #846b2c;
+        color: #ffe9b6;
+      }
+      .patient-reminder-status.upcoming {
+        background: #1f334a;
+        border-color: #3c5f8f;
+        color: #cfe2ff;
+      }
+      .patient-reminder-status.not-due {
+        background: #1e2f2a;
+        border-color: #3d6a5e;
+        color: #d5fff2;
+      }
+      .patient-reminder-status.paused {
+        background: #2c2c2c;
+        border-color: #4d4d4d;
+        color: #e0e0e0;
+      }
+      .patient-reminder-status.declined {
+        background: #3b2626;
+        border-color: #7b4a4a;
+        color: #ffdede;
+      }
+      .patient-reminder-status.unknown {
+        background: #243049;
+        border-color: #3b4d71;
+        color: #dbe6ff;
+      }
+      .patient-reminder-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .patient-reminder-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .patient-reminder-actions button {
+        background: #1f2b46;
+        border: 1px solid #3b4f79;
+        padding: 6px 8px;
+        font-size: 0.82rem;
+      }
+      .patient-reminder-actions button:hover {
+        filter: brightness(1.08);
+      }
+      .appointment-scheduler-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .appointment-scheduler-item {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 8px;
+      }
+      .modal-field {
+        margin-top: 8px;
+      }
+      .visit-order-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .visit-order-item {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 10px;
+      }
+      .visit-order-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+      }
+      .visit-order-name {
+        font-weight: 700;
+      }
+      .collapsible-panel {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        margin-bottom: 10px;
+      }
+      .collapsible-panel > summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 10px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .collapsible-panel > summary::-webkit-details-marker {
+        display: none;
+      }
+      .collapsible-panel > summary::after {
+        content: "▾";
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .collapsible-panel:not([open]) > summary::after {
+        content: "▸";
+      }
+      .collapsible-content {
+        padding: 0 10px 10px;
+      }
+      .ai-answer {
+        white-space: pre-wrap;
+        line-height: 1.45;
+        margin-top: 8px;
+      }
+      .ai-chat-shell {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #111628;
+        padding: 10px;
+        margin-top: 8px;
+      }
+      .ai-chat-toolbar {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .ai-chat-toolbar select {
+        flex: 1;
+      }
+      .ai-chat-messages {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #0f1424;
+        min-height: 190px;
+        max-height: 360px;
+        overflow-y: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .ai-msg {
+        max-width: 88%;
+        border-radius: 10px;
+        padding: 8px 10px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+      }
+      .ai-msg.user {
+        margin-left: auto;
+        background: #1b315f;
+        border: 1px solid #2f4f8f;
+      }
+      .ai-msg.assistant {
+        margin-right: auto;
+        background: #1a2135;
+        border: 1px solid #344469;
+      }
+      .ai-msg-meta {
+        margin-top: 4px;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .ai-chat-empty {
+        color: var(--muted);
+      }
+      .ai-chat-composer {
+        margin-top: 10px;
+      }
+      .ai-chat-composer textarea {
+        min-height: 84px;
+      }
+      .ai-chat-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 6px;
+      }
+      .checkout-payments {
+        margin-top: 10px;
+        background: #121827;
+        border: 1px solid var(--border);
+      }
+      .checkout-payments h4 {
+        margin: 0 0 8px;
+      }
+      .checkout-payments input[data-manual-pay-amount] {
+        width: 160px;
+      }
+      .checkout-payments select[data-manual-pay-method] {
+        width: 160px;
+      }
+      .checkout-payments input[data-manual-pay-note] {
+        min-width: 260px;
+        flex: 1;
+      }
+      #closeoutDateInput {
+        width: 160px;
+      }
+      .weight-tracker-shell {
+        display: grid;
+        gap: 8px;
+      }
+      .weight-tracker-chart {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #0f1424;
+        padding: 8px;
+      }
+      .weight-tracker-chart svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .weight-tracker-empty {
+        border: 1px dashed var(--border);
+        border-radius: 8px;
+        padding: 10px;
+      }
+      .weight-series-list {
+        display: grid;
+        gap: 6px;
+      }
+      .weight-series-row {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: #121827;
+        padding: 7px 8px;
+      }
+      .weight-history-collapsible {
+        margin-top: 2px;
+      }
+      .weight-history-collapsible > summary {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .weight-history-list {
+        display: grid;
+        gap: 6px;
+      }
+      .weight-history-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .weight-history-main {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .weight-history-delete {
+        padding: 4px 8px;
+        font-size: 0.78rem;
+      }
+      .weight-update-row {
+        align-items: center;
+        gap: 8px;
+      }
+      .weight-update-row p {
+        margin: 0;
+      }
+      .weight-input-compact {
+        width: 120px;
+        min-width: 120px;
+        margin: 0;
+      }
+      .patient-export-row {
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="global-header">
+      <button
+        type="button"
+        class="brand-home-link"
+        data-route-to="#/home"
+        aria-label="Go to home"
+      >
+        <h1 id="brandTitle" class="brand-title">ONECLICK</h1>
+      </button>
+    </header>
+    <main class="screen">
+      <div id="flashMessage"></div>
+
+      <section id="homeScreen">
+        <div class="home-toolbar">
+          <div class="home-toolbar-head">
+            <div id="homeStorageStatus"></div>
+            <div class="home-toolbar-actions">
+              <button
+                id="homeLabsBtn"
+                type="button"
+                class="secondary-btn home-labs-btn"
+                data-route-to="#/labs"
+              >
+                Labs
+                <span id="homeLabsPendingCount" class="home-labs-count">0</span>
+              </button>
+              <div class="menu-wrap home-settings-wrap">
+                <button
+                  class="menu-toggle"
+                  type="button"
+                  data-menu-toggle="true"
+                  aria-label="Open home settings"
+                >
+                  <span class="menu-toggle-line"></span
+                  ><span class="menu-toggle-line"></span
+                  ><span class="menu-toggle-line"></span>
+                </button>
+                <div
+                  id="homeSettingsMenu"
+                  class="menu-popover hidden home-settings-menu"
+                >
+                  <button
+                    id="homeSettingsRevenueBtn"
+                    type="button"
+                    data-home-toggle-revenue="true"
+                  >
+                    Show Revenue Snapshot
+                  </button>
+                  <button
+                    id="homeSettingsDuePaymentsBtn"
+                    type="button"
+                    data-home-toggle-due-payments="true"
+                  >
+                    Show Due Payments
+                  </button>
+                  <button
+                    id="homeSettingsRemindersBtn"
+                    type="button"
+                    data-home-toggle-reminders="true"
+                  >
+                    Show Reminders
+                  </button>
+                  <button
+                    id="homeSettingsInventoryBtn"
+                    type="button"
+                    data-home-toggle-inventory="true"
+                  >
+                    Show Inventory DEA & Tax Tracking
+                  </button>
+                  <hr class="menu-divider" />
+                  <span class="menu-section-label">Data & Closeout</span>
+                  <button id="exportFullBackupBtn" type="button">
+                    Backup All Data
+                  </button>
+                  <button id="importFullBackupBtn" type="button">
+                    Restore Backup
+                  </button>
+                  <input
+                    id="importFullBackupInput"
+                    type="file"
+                    accept=".zip,application/zip"
+                    class="hidden"
+                  />
+                  <label class="menu-section-label" for="closeoutDateInput"
+                    >Closeout Date</label
+                  >
+                  <input id="closeoutDateInput" type="date" />
+                  <button
+                    id="exportCloseoutBtn"
+                    type="button"
+                    class="secondary-btn"
+                  >
+                    Export Closeout CSV
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="center-search">
+            <div class="search-row">
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Search client, patient, or any contact name/phone"
+                size="56"
+              />
+              <button
+                id="openAddClientBtn"
+                class="icon-btn"
+                aria-label="Add client"
+                title="Add client"
+              >
+                <span class="icon-plus" aria-hidden="true">+</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          id="homeFinanceSummary"
+          class="card home-finance-summary hidden"
+        ></div>
+        <div
+          id="homeDuePaymentsSummary"
+          class="card home-finance-summary hidden"
+        ></div>
+        <div
+          id="homeRemindersSummary"
+          class="card home-finance-summary hidden"
+        ></div>
+        <details
+          id="inventoryPanel"
+          class="collapsible-panel inventory-panel hidden"
+        >
+          <summary>Inventory, Tax & DEA Tracking</summary>
+          <div class="collapsible-content">
+            <p class="muted">
+              Track on-hand inventory, inventory value, and controlled-substance
+              adjustments.
+            </p>
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="inventoryName">Item Name</label
+                ><input id="inventoryName" type="text" />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="inventorySku">SKU/NDC</label
+                ><input id="inventorySku" type="text" />
+              </div>
+            </div>
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="inventoryLotNumber"
+                  >Lot Number</label
+                ><input id="inventoryLotNumber" type="text" />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="inventoryExpirationDate"
+                  >Expiration Date</label
+                ><input id="inventoryExpirationDate" type="date" />
+              </div>
+            </div>
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="inventoryOnHandQty"
+                  >On Hand Qty</label
+                ><input
+                  id="inventoryOnHandQty"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value="0"
+                />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="inventoryUnit">Unit</label
+                ><input
+                  id="inventoryUnit"
+                  type="text"
+                  placeholder="vial, tab, mL"
+                />
+              </div>
+            </div>
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="inventoryUnitCost"
+                  >Unit Cost ($)</label
+                ><input
+                  id="inventoryUnitCost"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value="0"
+                />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="inventoryReorderLevel"
+                  >Reorder Level</label
+                ><input
+                  id="inventoryReorderLevel"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value="0"
+                />
+              </div>
+            </div>
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="inventoryControlled"
+                  >Controlled Substance</label
+                ><select id="inventoryControlled">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="inventoryDeaSchedule"
+                  >DEA Schedule</label
+                ><select id="inventoryDeaSchedule">
+                  <option value="">Not controlled</option>
+                  <option value="II">Schedule II</option>
+                  <option value="III">Schedule III</option>
+                  <option value="IV">Schedule IV</option>
+                  <option value="V">Schedule V</option>
+                </select>
+              </div>
+            </div>
+            <div id="inventoryError" class="error"></div>
+            <div class="actions-row">
+              <button id="addInventoryItemBtn" type="button">
+                Add Inventory Item
+              </button>
+            </div>
+            <div id="inventorySummary" class="inventory-summary"></div>
+            <div id="inventoryList" class="inventory-table"></div>
+          </div>
+        </details>
+        <div id="searchResults" class="results"></div>
+      </section>
+
+      <section id="labsScreen" class="hidden">
+        <div class="screen-header">
+          <h2>Labs</h2>
+          <button type="button" data-route-to="#/home">Back</button>
+        </div>
+        <p id="labsPendingMeta" class="muted"></p>
+        <div id="labsList"></div>
+        <div id="labsError" class="error"></div>
+      </section>
+
+      <section id="remindersScreen" class="hidden">
+        <div class="screen-header">
+          <h2 id="remindersListTitle">Reminders</h2>
+          <button type="button" data-route-to="#/home">Back</button>
+        </div>
+        <p id="remindersListMeta" class="muted"></p>
+        <div id="remindersList" class="reminders-list"></div>
+        <div id="remindersListError" class="error"></div>
+      </section>
+
+      <section id="addClientScreen" class="hidden">
+        <div class="screen-header"><h2>Add Client</h2></div>
+        <div class="form-stack">
+          <div class="form-group">
+            <label class="field-label" for="clientFirstName"
+              >First Name (required)</label
+            ><input id="clientFirstName" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="clientLastName"
+              >Last Name (required)</label
+            ><input id="clientLastName" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="clientPhone"
+              >Phone Number (required)</label
+            ><input id="clientPhone" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="clientEmail">Email (optional)</label
+            ><input id="clientEmail" type="email" />
+          </div>
+          <h3>Additional Contacts</h3>
+          <div id="clientContactsList"></div>
+          <div class="actions-row">
+            <button
+              id="addClientContactBtn"
+              class="icon-btn"
+              aria-label="Add additional contact"
+              title="Add additional contact"
+              type="button"
+            >
+              <span class="icon-plus" aria-hidden="true">+</span>
+            </button>
+          </div>
+        </div>
+        <h3 class="section-gap">Patients (at least one required)</h3>
+        <div id="newPatientList"></div>
+        <div class="actions-row">
+          <button
+            id="addPatientRowBtn"
+            class="icon-btn"
+            aria-label="Add patient row"
+            title="Add patient row"
+          >
+            <span class="icon-plus" aria-hidden="true">+</span>
+          </button>
+        </div>
+        <div id="addClientError" class="error"></div>
+        <div class="actions-row"><button id="saveClientBtn">Save</button></div>
+      </section>
+
+      <section id="editClientScreen" class="hidden">
+        <div class="screen-header">
+          <h2>Edit Client</h2>
+          <button data-route-to="#/home">Back</button>
+        </div>
+        <div class="form-stack">
+          <div class="form-group">
+            <label class="field-label" for="editClientFirstName"
+              >First Name</label
+            ><input id="editClientFirstName" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editClientLastName">Last Name</label
+            ><input id="editClientLastName" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editClientPhone">Phone Number</label
+            ><input id="editClientPhone" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editClientEmail">Email</label
+            ><input id="editClientEmail" type="email" />
+          </div>
+          <h3>Additional Contacts</h3>
+          <div id="editClientContactsList"></div>
+          <div class="actions-row">
+            <button
+              id="addEditClientContactBtn"
+              class="icon-btn"
+              aria-label="Add additional contact"
+              title="Add additional contact"
+              type="button"
+            >
+              <span class="icon-plus" aria-hidden="true">+</span>
+            </button>
+          </div>
+        </div>
+        <div id="editClientError" class="error"></div>
+        <div class="actions-row">
+          <button id="saveClientEditBtn">Save</button>
+        </div>
+      </section>
+
+      <section id="clientDetailScreen" class="hidden">
+        <div class="screen-header">
+          <h2>Client Detail</h2>
+          <div id="clientDetailActions"></div>
+        </div>
+        <div id="clientDetailHeader"></div>
+        <details class="collapsible-panel">
+          <summary>Ask AI</summary>
+          <div class="collapsible-content">
+            <p class="muted">
+              Clean chat view with OpenAI routing. It scans attached PDFs/text
+              files, sends up to 2 recent PDFs as full files, and includes up to
+              3 recent images per request. Use `/power` only when you need
+              deeper reasoning.
+            </p>
+            <div class="ai-chat-shell">
+              <div class="ai-chat-toolbar">
+                <select
+                  id="clientAiChatSelect"
+                  aria-label="Select chat"
+                ></select>
+                <button
+                  id="clientAiNewChatBtn"
+                  type="button"
+                  class="secondary-btn"
+                >
+                  New Chat
+                </button>
+              </div>
+              <div id="clientAiMessages" class="ai-chat-messages">
+                <div class="ai-chat-empty">Start a message to begin.</div>
+              </div>
+              <div id="clientAiError" class="error"></div>
+              <div class="ai-chat-composer">
+                <label class="field-label" for="clientAiQuestion"
+                  >Message</label
+                >
+                <textarea
+                  id="clientAiQuestion"
+                  placeholder="Ask about this client and their patients..."
+                ></textarea>
+                <div class="ai-chat-actions">
+                  <button id="askClientAiBtn" type="button">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details id="clientCheckoutPanel" class="collapsible-panel" open>
+          <summary>Checkout Summary</summary>
+          <div class="collapsible-content" id="clientCheckoutSummary"></div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Add Patient</summary>
+          <div class="collapsible-content">
+            <div class="form-stack">
+              <div class="form-group">
+                <label class="field-label" for="detailPatientName"
+                  >Name (required)</label
+                ><input id="detailPatientName" type="text" />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="detailPatientSpecies"
+                  >Species</label
+                >
+                <select id="detailPatientSpecies">
+                  <option value="">Select species</option>
+                  <option>Dog</option>
+                  <option>Cat</option>
+                  <option>Bird</option>
+                  <option>Rabbit</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="detailPatientBreed"
+                  >Breed</label
+                >
+                <select id="detailPatientBreed">
+                  <option value="">Select breed</option>
+                  <option>Other</option>
+                  <option>Unknown</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="detailPatientSex"
+                  >Sex/Reproductive Status</label
+                ><select id="detailPatientSex">
+                  <option value="">Select option</option>
+                  <option>Spayed Female</option>
+                  <option>Neutered Male</option>
+                  <option>Intact Female</option>
+                  <option>Intact Male</option>
+                  <option>Unknown</option>
+                </select>
+              </div>
+              <div class="split">
+                <div class="form-group">
+                  <label class="field-label" for="detailPatientAge"
+                    >Age (years)</label
+                  ><input id="detailPatientAge" type="number" min="0" />
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="detailPatientDateOfBirth"
+                    >Date of Birth</label
+                  ><input id="detailPatientDateOfBirth" type="date" />
+                </div>
+              </div>
+            </div>
+            <div class="actions-row">
+              <button id="saveDetailPatientBtn">Save</button>
+            </div>
+          </div>
+        </details>
+        <div id="clientDetailError" class="error"></div>
+      </section>
+
+      <section id="editPatientScreen" class="hidden">
+        <div class="screen-header">
+          <h2>Edit Patient</h2>
+          <button data-route-to="#/client">Back</button>
+        </div>
+        <div class="form-stack">
+          <div class="form-group">
+            <label class="field-label" for="editPatientName">Name</label
+            ><input id="editPatientName" type="text" />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editPatientSpecies">Species</label
+            ><select id="editPatientSpecies">
+              <option value="">Select species</option>
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Bird</option>
+              <option>Rabbit</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editPatientBreed">Breed</label>
+            <select id="detailPatientBreed">
+              <option value="">Select breed</option>
+              <option>Other</option>
+              <option>Unknown</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="editPatientSex"
+              >Sex/Reproductive Status</label
+            ><select id="editPatientSex">
+              <option value="">Select option</option>
+              <option>Spayed Female</option>
+              <option>Neutered Male</option>
+              <option>Intact Female</option>
+              <option>Intact Male</option>
+              <option>Unknown</option>
+            </select>
+          </div>
+          <div class="split">
+            <div class="form-group">
+              <label class="field-label" for="editPatientAge">Age (years)</label
+              ><input id="editPatientAge" type="number" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="field-label" for="editPatientDateOfBirth"
+                >Date of Birth</label
+              ><input id="editPatientDateOfBirth" type="date" />
+            </div>
+          </div>
+        </div>
+        <div id="editPatientError" class="error"></div>
+        <div class="actions-row">
+          <button id="savePatientEditBtn">Save</button>
+        </div>
+      </section>
+
+      <section id="patientDetailScreen" class="hidden">
+        <div class="screen-header">
+          <h2>Patient Detail</h2>
+          <div id="patientDetailActions"></div>
+        </div>
+        <div id="patientSummary"></div>
+        <details class="collapsible-panel">
+          <summary>Weight Tracker</summary>
+          <div class="collapsible-content">
+            <div class="weight-tracker-shell">
+              <p id="patientWeightTrendMeta" class="muted"></p>
+              <div id="patientWeightChart" class="weight-tracker-chart"></div>
+              <div
+                id="patientWeightSeriesList"
+                class="weight-series-list"
+              ></div>
+              <div class="row section-gap weight-update-row">
+                <label class="field-label" for="patientWeightLbsInput"
+                  >Weight</label
+                >
+                <input
+                  id="patientWeightLbsInput"
+                  class="weight-input-compact"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                />
+                <p class="muted">
+                  kg: <span id="patientWeightKgPreview">0.00</span>
+                </p>
+                <button id="savePatientWeightBtn" type="button">Save</button>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Start New Visit</summary>
+          <div class="collapsible-content">
+            <label
+              >Reason for Visit<br /><input id="newVisitReason" type="text"
+            /></label>
+            <button id="startVisitBtn">Start</button>
+          </div>
+        </details>
+        <details
+          id="patientAppointmentSchedulerPanel"
+          class="collapsible-panel"
+        >
+          <summary>Appointment Scheduler</summary>
+          <div class="collapsible-content">
+            <div class="split">
+              <div class="form-group">
+                <label class="field-label" for="patientAppointmentDateInput"
+                  >Appointment Date</label
+                >
+                <input id="patientAppointmentDateInput" type="date" />
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="patientAppointmentStatusInput"
+                  >Status</label
+                >
+                <select id="patientAppointmentStatusInput">
+                  <option value="scheduled">Scheduled</option>
+                  <option value="confirmed">Confirmed</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="field-label" for="patientAppointmentReasonInput"
+                >Reason</label
+              >
+              <input id="patientAppointmentReasonInput" type="text" />
+            </div>
+            <div class="actions-row">
+              <button id="schedulePatientAppointmentBtn" type="button">
+                Schedule Appointment
+              </button>
+            </div>
+            <div id="patientAppointmentSchedulerError" class="error"></div>
+            <div
+              id="patientAppointmentList"
+              class="appointment-scheduler-list"
+            ></div>
+          </div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Medical Notes</summary>
+          <div class="collapsible-content">
+            <div class="form-group">
+              <label class="field-label" for="patientMedicalNoteInput"
+                >Add Note</label
+              >
+              <textarea
+                id="patientMedicalNoteInput"
+                placeholder="Phone call note, follow-up reminder, or general patient info"
+              ></textarea>
+            </div>
+            <div class="actions-row">
+              <button id="addPatientMedicalNoteBtn">Add Note</button>
+            </div>
+            <div id="patientMedicalNotesList"></div>
+            <div id="visitList"></div>
+          </div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Diagnostics</summary>
+          <div class="collapsible-content" id="patientDiagnosticsList"></div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Client Provided Medical Records</summary>
+          <div class="collapsible-content">
+            <button id="addPatientAttachmentBtn">Upload</button>
+            <input id="patientAttachmentFileInput" type="file" class="hidden" />
+            <div id="patientAttachmentList"></div>
+          </div>
+        </details>
+        <details class="collapsible-panel">
+          <summary>Declined Services Log (Hospital Only)</summary>
+          <div
+            class="collapsible-content"
+            id="patientDeclinedServicesLog"
+          ></div>
+        </details>
+        <div id="patientDetailError" class="error"></div>
+        <div class="actions-row patient-export-row">
+          <button id="exportPatientBtn" class="secondary-btn">
+            Export Medical Records
+          </button>
+        </div>
+      </section>
+
+      <section id="visitEditorScreen" class="hidden">
+        <h2>Visit Editor</h2>
+        <div class="row"><span id="visitStatusBadge"></span></div>
+        <div id="visitPatientContext" class="visit-context"></div>
+        <div id="visitMeta" class="muted"></div>
+        <div class="form-stack">
+          <details class="collapsible-panel">
+            <summary>SOAP</summary>
+            <div class="collapsible-content">
+              <div class="form-stack">
+                <div class="split">
+                  <div class="form-group">
+                    <label class="field-label" for="visitDate">Date</label>
+                    <input id="visitDate" type="date" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="visitReason"
+                    >Reason for Visit</label
+                  >
+                  <input id="visitReason" type="text" />
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="visitWeightLbs"
+                    >Current Weight (lbs)</label
+                  >
+                  <input
+                    id="visitWeightLbs"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                  />
+                  <p class="muted">
+                    Current weight in kg:
+                    <span id="visitWeightKgPreview">0.00</span>
+                  </p>
+                  <p id="visitWeightTrendMeta" class="muted"></p>
+                  <div id="visitWeightChart" class="weight-tracker-chart"></div>
+                  <div
+                    id="visitWeightSeriesList"
+                    class="weight-series-list"
+                  ></div>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="soapSubjective"
+                    >Subjective</label
+                  >
+                  <textarea id="soapSubjective"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="soapObjective"
+                    >Objective</label
+                  >
+                  <textarea id="soapObjective"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="soapAssessment"
+                    >Assessment</label
+                  >
+                  <textarea id="soapAssessment"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="soapPlan">Plan</label>
+                  <textarea id="soapPlan"></textarea>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="collapsible-panel">
+            <summary>Attachments</summary>
+            <div class="collapsible-content">
+              <p class="muted">
+                Attach diagnostics, images, or documents to include them with
+                this visit record.
+              </p>
+              <div class="actions-row">
+                <button id="addAttachmentBtn">Add</button>
+              </div>
+              <input id="attachmentFileInput" type="file" class="hidden" />
+              <div id="attachmentList"></div>
+            </div>
+          </details>
+
+          <details class="collapsible-panel">
+            <summary>Charges & Services</summary>
+            <div class="collapsible-content">
+              <p class="muted">
+                Add billable services for this visit and track completion.
+              </p>
+              <div class="row">
+                <select id="visitOrderCatalogSelect"></select>
+              </div>
+              <div id="visitOrderError" class="error"></div>
+              <div id="visitOrderList" class="visit-order-list"></div>
+              <p id="visitOrderTotals" class="muted"></p>
+            </div>
+          </details>
+        </div>
+        <p id="visitDeleteHelpText" class="muted"></p>
+        <div id="visitEditorError" class="error"></div>
+        <div id="visitEditorSuccess" class="success"></div>
+        <div class="actions-row">
+          <button id="saveVisitBtn">Save Visit</button
+          ><button id="finalizeVisitBtn">Finalize Visit</button>
+          <button id="deleteVisitBtn" class="danger">Delete Visit</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="confirmModal" class="modal-backdrop hidden">
+      <div class="modal">
+        <p id="confirmModalMessage"></p>
+        <div class="row" id="confirmModalActions"></div>
+      </div>
+    </div>
+
+    <div id="reminderDueDateModal" class="modal-backdrop hidden">
+      <div class="modal">
+        <h3>Edit Due Date</h3>
+        <p class="muted">Pick a new due date for this reminder.</p>
+        <div class="modal-field">
+          <input id="reminderDueDateInput" type="date" />
+        </div>
+        <div id="reminderDueDateError" class="error"></div>
+        <div class="row">
+          <button id="reminderDueDateSaveBtn">Save</button>
+          <button id="reminderDueDateCancelBtn" class="danger">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="visitSelectionModal" class="modal-backdrop hidden">
+      <div class="modal large">
+        <h3>Select Medical Records to Export</h3>
+        <p class="muted">
+          Choose one or more finalized visits and/or specific prior medical
+          records.
+        </p>
+        <div class="card">
+          <label class="visit-selection-item">
+            <input id="includePriorRecordsCheckbox" type="checkbox" checked />
+            <span>Include prior medical records section</span>
+          </label>
+        </div>
+        <div id="visitSelectionList" class="visit-selection-list"></div>
+        <div id="priorRecordSelectionList" class="visit-selection-list"></div>
+        <div id="visitSelectionError" class="error"></div>
+        <div class="row">
+          <button id="visitSelectionConfirmBtn">Export Medical Records</button>
+          <button id="visitSelectionCancelBtn" class="danger">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="reminders_logic.js"></script>
+    <script src="sallypVetSoftware.js"></script>
+  </body>
+</html>
