@@ -40,18 +40,3 @@ function App() {
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
-
-//   const randomObservationStatus =
-//     observationStatuses[randomInt(0, observationStatuses.length - 1)];
-
-//   const allPhenomena =
-//     spacePhenomena.emoji + spacePhenomena.name + randomObservationStatus;
-
-//   const phenomenaListItem = spacePhenomena.map((phenomenon) => {
-//     return randomObservationStatus === observationStatuses[2]
-//       ? allPhenomena + "Study time!!!"
-//       : allPhenomena;
-//   });
-
-//   return <div>{phenomenaListItem}</div>;
-// }
