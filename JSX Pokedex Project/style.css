@@ -1,0 +1,8 @@
+html {
+  font-family: "Noto sans mono", sans-serif;
+  outline: 0;
+  min-width: 100%;
+  min-height: 100%;
+  scroll-padding-top: 4%;
+  overflow-x: hidden;
+}
