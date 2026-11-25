@@ -43,7 +43,7 @@ span::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/800px-Heart_coraz%C3%B3n.svg.png);
+  background: url(https://upload.wikimedia.org/wikipedia/commons/8/8e/Heart-image.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original);
   background-size: cover;
   animation: moveShape 1s linear infinite;
 }
